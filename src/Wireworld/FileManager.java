@@ -16,8 +16,8 @@ public class FileManager {
         String filePath = path;
 
         world.Fill();
-        for( int i = 0 ; i < 10 ; i++){
-            for( int j = 0 ; j < 10 ; j++){
+        for( int i = 0 ; i < 15 ; i++){
+            for( int j = 0 ; j < 15 ; j++){
                 System.out.print(world.wireworld[j][i]+" ");
             }
             System.out.println();
@@ -50,14 +50,14 @@ public class FileManager {
                         direction = arguments[2].substring(1);
                         x = arguments[3].substring(1);
                         y = arguments[4].substring(1);
-                        OrGate.OrGate(position,direction,Integer.parseInt(x),Integer.parseInt(y));
+                        world = OrGate.OrGate(position,direction,Integer.parseInt(x),Integer.parseInt(y),world);
                         break;
                     case "AndNoGate":
                         position = arguments[1].substring(1);
                         direction = arguments[2].substring(1);
                         x = arguments[3].substring(1);
                         y = arguments[4].substring(1);
-                        AndNoGate.AndNoGate(position,direction,Integer.parseInt(x),Integer.parseInt(y));
+                        world = AndNoGate.AndNoGate(position,direction,Integer.parseInt(x),Integer.parseInt(y),world);
                         break;
                     case "FlipFlop":
                         position = arguments[1].substring(1);
@@ -68,10 +68,9 @@ public class FileManager {
                         break;
                     case "Generator":
                         position = arguments[1].substring(1);
-                        direction = arguments[2].substring(1);
-                        x = arguments[3].substring(1);
-                        y = arguments[4].substring(1);
-                        Generator.Generator(position,direction,Integer.parseInt(x),Integer.parseInt(y));
+                        x = arguments[2].substring(1);
+                        y = arguments[3].substring(1);
+                        world = Generator.Generator(position,Integer.parseInt(x),Integer.parseInt(y),world);
                         break;
                     case "Wire":
                         x = arguments[1].substring(1);
@@ -102,8 +101,8 @@ public class FileManager {
             System.exit(3);
         }
 
-        for( int i = 0 ; i < 10 ; i++){
-            for( int j = 0 ; j < 10 ; j++){
+        for( int i = 0 ; i < 15 ; i++){
+            for( int j = 0 ; j < 15 ; j++){
                 System.out.print(world.wireworld[j][i]+" ");
             }
             System.out.println();

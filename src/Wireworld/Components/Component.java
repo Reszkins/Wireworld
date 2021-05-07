@@ -26,8 +26,8 @@ public class Component {
     }
 
     public static boolean[][] FillVertical(boolean[][] elementVertical,boolean[][] elementHorizontal){
-        for(int i=0;i<8;++i){
-            for(int j=0;j<3;++j){
+        for(int i=0;i<elementHorizontal.length;++i){
+            for(int j=0;j< elementHorizontal[0].length;++j){
                 elementVertical[j][i] = elementHorizontal[i][j];
             }
         }
