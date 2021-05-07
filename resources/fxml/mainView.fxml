@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller">
+    <columnConstraints>
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+    </rowConstraints>
+    <children>
+        <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="980.0" prefWidth="1820.0">
+            <center>
+                <ScrollPane fx:id="scroll" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" style="-fx-background: #303030;" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                            <children>
+                                <Button layoutX="465.0" layoutY="338.0" mnemonicParsing="false" onAction="#loadFile" text="Load file..." />
+                            </children></AnchorPane>
+                    </content>
+                </ScrollPane>
+            </center>
+            <left>
+                <VBox prefHeight="980.0" prefWidth="54.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Button mnemonicParsing="false" text="Start" />
+                        <Label text="Iterations:" />
+                        <TextField text="10" />
+                        <Button mnemonicParsing="false" text="Save" />
+                    </children>
+                </VBox>
+            </left></BorderPane>
+    </children>
+</GridPane>

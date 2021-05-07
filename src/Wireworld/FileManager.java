@@ -10,7 +10,7 @@ import java.io.IOException;
 public class FileManager {
     static World world = new World();
 
-    public static void ReadFromFile(String path){
+    public static World ReadFromFile(String path){
         String line;
         BufferedReader fileReader = null;
         String filePath = path;
@@ -107,9 +107,6 @@ public class FileManager {
             }
             System.out.println();
         }
-    }
-
-    public static void main(String[] args) {
-        ReadFromFile(args[0]);
+        return world;
     }
 }
