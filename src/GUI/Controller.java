@@ -38,7 +38,7 @@ public class Controller implements Initializable {
     public void InitWorldGrid()
     {
         root.setCenter(scroll);
-        gridPane = new WorldCanvas(10, 10, scroll.getWidth(), scroll.getHeight());
+        gridPane = new WorldCanvas(100, 100, scroll.getWidth(), scroll.getHeight());
         CanvasEvents events = new CanvasEvents(gridPane);
         scroll.setContent(gridPane);
         scroll.addEventFilter(ScrollEvent.SCROLL, events.getOnScrollEventHandler());

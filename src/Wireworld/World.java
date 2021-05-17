@@ -1,13 +1,12 @@
 package Wireworld;
 
 public class World extends Cells {
-    public static Case[][] wireworld = new Case[15][15];
-    Case x = Case.EMPTY;
+    public static Case[][] wireworld = new Case[100][100];
 
     public void Fill() {
-        for( int i = 0 ; i < 15 ; i++){
-            for( int j = 0 ; j < 15 ; j++){
-                wireworld[i][j] = x;
+        for( int i = 0 ; i < 100 ; i++){
+            for( int j = 0 ; j < 100 ; j++){
+                wireworld[i][j] = Case.EMPTY;
             }
         }
     }

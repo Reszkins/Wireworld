@@ -16,12 +16,12 @@ public class FileManager {
         String filePath = path;
 
         world.Fill();
-        for( int i = 0 ; i < 15 ; i++){
-            for( int j = 0 ; j < 15 ; j++){
+      /*  for( int i = 0 ; i < 100 ; i++){
+            for( int j = 0 ; j < 100 ; j++){
                 System.out.print(world.wireworld[j][i]+" ");
             }
             System.out.println();
-        }
+        }*/
 
         try {
             fileReader = new BufferedReader(new FileReader(filePath));
@@ -35,7 +35,7 @@ public class FileManager {
                 System.out.println(line);
                 String[] arguments = line.split(",");
                 String element = arguments[0];
-                String position, direction, x, y, type;
+                String position, direction, x, y, x2, y2, type;
 
                 switch (element){
                     case "Diode":
@@ -64,7 +64,7 @@ public class FileManager {
                         direction = arguments[2].substring(1);
                         x = arguments[3].substring(1);
                         y = arguments[4].substring(1);
-                        FlipFlop.FlipFlop(position,direction,Integer.parseInt(x),Integer.parseInt(y));
+                        world = FlipFlop.FlipFlop(position,direction,Integer.parseInt(x),Integer.parseInt(y),world);
                         break;
                     case "Generator":
                         position = arguments[1].substring(1);
@@ -75,13 +75,15 @@ public class FileManager {
                     case "Wire":
                         x = arguments[1].substring(1);
                         y = arguments[2].substring(1);
-                        Wire.Wire(Integer.parseInt(x),Integer.parseInt(y));
+                        x2 = arguments[3].substring(1);
+                        y2 = arguments[4].substring(1);
+                        world = Wire.Wire(Integer.parseInt(x),Integer.parseInt(y),Integer.parseInt(x2),Integer.parseInt(y2),world);
                         break;
                     case "Electron":
                         type = arguments[1].substring(1);
                         x = arguments[2].substring(1);
                         y = arguments[3].substring(1);
-                        Electron.Electron(type,Integer.parseInt(x),Integer.parseInt(y));
+                        world = Electron.Electron(type,Integer.parseInt(x),Integer.parseInt(y),world);
                         break;
                     default:
                         System.out.println("Błąd danych wejściowych!");
@@ -101,12 +103,12 @@ public class FileManager {
             System.exit(3);
         }
 
-        for( int i = 0 ; i < 15 ; i++){
-            for( int j = 0 ; j < 15 ; j++){
+       /* for( int i = 0 ; i < 100 ; i++){
+            for( int j = 0 ; j < 100 ; j++){
                 System.out.print(world.wireworld[j][i]+" ");
             }
             System.out.println();
-        }
+        }*/
         return world;
     }
 }
