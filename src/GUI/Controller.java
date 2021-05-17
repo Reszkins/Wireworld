@@ -51,10 +51,18 @@ public class Controller implements Initializable {
     public void loadFile()
     {
 
-        FileChooser filechooser = new FileChooser();
-        filechooser.setTitle("Choose input file.");
-        File input = filechooser.showOpenDialog(root.getScene().getWindow());
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose input file.");
+        File input = fileChooser.showOpenDialog(root.getScene().getWindow());
         world = FileManager.ReadFromFile(input.getAbsolutePath());
         InitWorldGrid();
+    }
+
+    @FXML
+    public void saveFile() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose output directory.");
+        File selectedFile = fileChooser.showSaveDialog(root.getScene().getWindow());
+        FileManager.WriteToFile(selectedFile.getAbsolutePath(),world);
     }
 }

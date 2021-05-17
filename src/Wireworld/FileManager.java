@@ -2,12 +2,11 @@ package Wireworld;
 
 import Wireworld.Components.*;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
 
 public class FileManager {
+    static ArrayList<String> list = new ArrayList<String>();
     static World world = new World();
 
     public static World ReadFromFile(String path){
@@ -39,6 +38,7 @@ public class FileManager {
 
                 switch (element){
                     case "Diode":
+                        list.add(line);
                         position = arguments[1].substring(1);
                         direction = arguments[2].substring(1);
                         x = arguments[3].substring(1);
@@ -46,6 +46,7 @@ public class FileManager {
                         world = Diode.Diode(position,direction,Integer.parseInt(x),Integer.parseInt(y),world);
                         break;
                     case "OrGate":
+                        list.add(line);
                         position = arguments[1].substring(1);
                         direction = arguments[2].substring(1);
                         x = arguments[3].substring(1);
@@ -53,6 +54,7 @@ public class FileManager {
                         world = OrGate.OrGate(position,direction,Integer.parseInt(x),Integer.parseInt(y),world);
                         break;
                     case "AndNoGate":
+                        list.add(line);
                         position = arguments[1].substring(1);
                         direction = arguments[2].substring(1);
                         x = arguments[3].substring(1);
@@ -60,6 +62,7 @@ public class FileManager {
                         world = AndNoGate.AndNoGate(position,direction,Integer.parseInt(x),Integer.parseInt(y),world);
                         break;
                     case "FlipFlop":
+                        list.add(line);
                         position = arguments[1].substring(1);
                         direction = arguments[2].substring(1);
                         x = arguments[3].substring(1);
@@ -67,12 +70,14 @@ public class FileManager {
                         world = FlipFlop.FlipFlop(position,direction,Integer.parseInt(x),Integer.parseInt(y),world);
                         break;
                     case "Generator":
+                        list.add(line);
                         position = arguments[1].substring(1);
                         x = arguments[2].substring(1);
                         y = arguments[3].substring(1);
                         world = Generator.Generator(position,Integer.parseInt(x),Integer.parseInt(y),world);
                         break;
                     case "Wire":
+                        list.add(line);
                         x = arguments[1].substring(1);
                         y = arguments[2].substring(1);
                         x2 = arguments[3].substring(1);
@@ -111,4 +116,59 @@ public class FileManager {
         }*/
         return world;
     }
+
+    public static void WriteToFile(String path, World world) {
+        BufferedWriter writer = null;
+
+        try{
+            writer = new BufferedWriter(new FileWriter(path));
+        } catch (IOException e){
+            System.out.println("Błąd podczas tworzenia pliku!");
+            System.exit(5);
+        }
+        try{
+            for(String line : list){
+                writer.write(line);
+                writer.write("\n");
+            }
+
+        } catch (IOException e){
+            System.out.println("Błąd podczas tworzenia pliku!");
+            System.exit(5);
+        }
+
+        for(int i=0;i<100;++i){
+            for(int j=0;j<100;++j){
+                if(world.wireworld[i][j] == Cells.Case.ELECTRON_HEAD) {
+                    try {
+                        String line = "Electron, Head, " + i + ", " + j;
+                        writer.write(line);
+                        writer.write("\n");
+                    } catch (IOException e) {
+                        System.out.println("Błąd podczas tworzenia pliku! (ElectronH)");
+                        System.exit(5);
+                    }
+                }
+                if(world.wireworld[i][j] == Cells.Case.ELECTRON_TAIL) {
+                    try {
+                        String line = "Electron, Tail, " + i + ", " + j;
+                        writer.write(line);
+                        writer.write("\n");
+                    } catch (IOException e) {
+                        System.out.println("Błąd podczas tworzenia pliku! (ElectronT)");
+                        System.exit(5);
+                    }
+                }
+
+            }
+        }
+        try{
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Błąd podczas tworzenia pliku!");
+            System.exit(5);
+        }
+
+    }
+
 }
