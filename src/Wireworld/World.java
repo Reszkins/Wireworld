@@ -19,4 +19,38 @@ public class World extends Cells {
         }
         return world;
     }
+
+    public void NextIteration(){
+        for(int i = 0; i < 100; i++){
+            for(int j = 0; j < 100; j++){
+                if(wireworld[i][j] == Case.EMPTY);
+                else{
+                    if(wireworld[i][j] == Case.ELECTRON_HEAD)
+                        wireworld[i][j] = Case.ELECTRON_TAIL;
+                    else if(wireworld[i][j] == Case.ELECTRON_TAIL)
+                        wireworld[i][j] = Case.WIRE;
+                    else if(wireworld[i][j] == Case.WIRE){
+                        int n = CountElectronNeighbors(i-1,j-1);
+                        if(n == 1 || n == 2)
+                            wireworld[i][j] = Case.ELECTRON_HEAD;
+                    }
+                }
+            }
+        }
+    }
+
+    private int CountElectronNeighbors(int x, int y) {
+        if(x < 0) x = 0;
+        if(y < 0) y = 0;
+
+        int result = 0;
+
+        for(int i = x; i < x+3 && i < 100; i++){
+            for(int j = y; j < y+3 && j < 100; j++){
+                if(wireworld[i][j] == Case.ELECTRON_HEAD)
+                    result++;
+            }
+        }
+        return result;
+    }
 }
