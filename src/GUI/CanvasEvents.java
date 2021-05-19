@@ -1,13 +1,12 @@
 package GUI;
 
 import javafx.event.EventHandler;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.paint.Color;
 
 public class CanvasEvents {
-    private static final double maxScale = 30.0d;
-    private static final double minScale = 0.1d;
-
     private double mouseAnchorX;
     private double mouseAnchorY;
 
@@ -25,16 +24,16 @@ public class CanvasEvents {
     }
 
     public EventHandler<MouseEvent> getOnMouseDraggedEventHandler() {
-        return onMouseDraggedEventHadler;
+        return onMouseDraggedEventHandler;
     }
 
     public EventHandler<ScrollEvent> getOnScrollEventHandler() {
-        return onScrollEventHadler;
+        return onScrollEventHandler;
     }
 
-    public EventHandler<MouseEvent> getOnClickEventHandler() {return onClickEventHandler; }
+    //public EventHandler<MouseEvent> getOnClickEventHandler() {return onClickEventHandler; }
 
-    private EventHandler<MouseEvent> onMousePressedEventHandler = new EventHandler<MouseEvent>() {
+    private final EventHandler<MouseEvent> onMousePressedEventHandler = new EventHandler<>() {
         @Override
         public void handle(MouseEvent mouseEvent) {
 
@@ -49,7 +48,7 @@ public class CanvasEvents {
         }
     };
 
-    private EventHandler<MouseEvent> onMouseDraggedEventHadler = new EventHandler<MouseEvent>() {
+    private final EventHandler<MouseEvent> onMouseDraggedEventHandler = new EventHandler<>() {
         @Override
         public void handle(MouseEvent mouseEvent) {
             if(!mouseEvent.isPrimaryButtonDown())
@@ -62,17 +61,15 @@ public class CanvasEvents {
         }
     };
 
-    private EventHandler<ScrollEvent> onScrollEventHadler = new EventHandler<ScrollEvent>() {
+    private final EventHandler<ScrollEvent> onScrollEventHandler = new EventHandler<>() {
         @Override
         public void handle(ScrollEvent scrollEvent) {
-            double d = 1.1d;
+            double d = 2.0d;
 
             double scale = canvas.getScale();
             double prevScale = scale;
 
             scale = scrollEvent.getDeltaY() > 0 ? scale*d : scale/d;
-            scale = Math.min(scale, maxScale);
-            scale = Math.max(scale,minScale);
 
             double f = (scale/prevScale)-1;
 
@@ -80,8 +77,6 @@ public class CanvasEvents {
             double dy = (scrollEvent.getY() - (canvas.getBoundsInParent().getHeight()/2 + canvas.getBoundsInParent().getMinY()));
 
             canvas.setScale(scale);
-            canvas.setScaleX(scale);
-            canvas.setScaleY(scale);
 
             canvas.setPivot(dx*f, dy*f);
 
@@ -89,12 +84,14 @@ public class CanvasEvents {
         }
     };
 
-    private EventHandler<MouseEvent> onClickEventHandler = new EventHandler<MouseEvent>() {
+    /*
+    private final EventHandler<MouseEvent> onClickEventHandler = new EventHandler<>() {
         @Override
         public void handle(MouseEvent mouseEvent) {
-            System.out.println("Col:" + canvas.getPositionByPixel(mouseEvent.getX()));
-            System.out.println("Row:" + canvas.getPositionByPixel(mouseEvent.getY()));
+            if(!mouseEvent.isSecondaryButtonDown())
+                return;
+            canvas.draw(canvas.getPositionByPixel(mouseEvent.getY()),canvas.getPositionByPixel(mouseEvent.getX()), Color.DARKRED);
         }
     };
-
+    */
 }
