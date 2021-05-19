@@ -17,7 +17,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
                             <children>
-                                <Button layoutX="465.0" layoutY="338.0" mnemonicParsing="false" onAction="#loadFile" text="Load file..." />
+                                <Button layoutX="605.0" layoutY="369.0" mnemonicParsing="false" onAction="#loadFile" text="Load file..." />
                             </children></AnchorPane>
                     </content>
                 </ScrollPane>
@@ -28,7 +28,7 @@
                         <Button mnemonicParsing="false" text="Start" />
                         <Label text="Iterations:" />
                         <TextField text="10" />
-                        <Button mnemonicParsing="false" text="Save" />
+                        <Button mnemonicParsing="false" onAction="#saveFile" text="Save" />
                     </children>
                 </VBox>
             </left></BorderPane>

@@ -40,9 +40,11 @@ public class WorldCanvas extends Canvas {
 
     public void drawWorld(Cells.Case[][] world)
     {
-        for( int i = 0 ; i < 10 ; i++){
-            for( int j = 0 ; j < 10 ; j++){
-                if(world[i][j] == Cells.Case.WIRE) draw(i,j,Color.YELLOW);
+        for( int i = 0 ; i < 100 ; i++){
+            for( int j = 0 ; j < 100 ; j++){
+                if(world[j][i] == Cells.Case.WIRE) draw(i,j,Color.YELLOW);
+                else if(world[j][i] == Cells.Case.ELECTRON_HEAD) draw(i,j,Color.BLUE);
+                else if(world[j][i] == Cells.Case.ELECTRON_TAIL) draw(i,j,Color.RED);
             }
         }
     }

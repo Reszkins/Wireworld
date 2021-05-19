@@ -38,7 +38,7 @@ public class Controller implements Initializable {
     public void InitWorldGrid()
     {
         root.setCenter(scroll);
-        gridPane = new WorldCanvas(10, 10, scroll.getWidth(), scroll.getHeight());
+        gridPane = new WorldCanvas(100, 100, scroll.getWidth(), scroll.getHeight());
         CanvasEvents events = new CanvasEvents(gridPane);
         scroll.setContent(gridPane);
         scroll.addEventFilter(ScrollEvent.SCROLL, events.getOnScrollEventHandler());
@@ -51,10 +51,18 @@ public class Controller implements Initializable {
     public void loadFile()
     {
 
-        FileChooser filechooser = new FileChooser();
-        filechooser.setTitle("Choose input file.");
-        File input = filechooser.showOpenDialog(root.getScene().getWindow());
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose input file.");
+        File input = fileChooser.showOpenDialog(root.getScene().getWindow());
         world = FileManager.ReadFromFile(input.getAbsolutePath());
         InitWorldGrid();
+    }
+
+    @FXML
+    public void saveFile() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose output directory.");
+        File selectedFile = fileChooser.showSaveDialog(root.getScene().getWindow());
+        FileManager.WriteToFile(selectedFile.getAbsolutePath(),world);
     }
 }
