@@ -1,7 +1,20 @@
 package Wireworld;
 
 public class World extends Cells {
+    public int rows = 100;
+    public int cols = 100;
     public static Case[][] wireworld = new Case[100][100];
+
+    public World(int rows, int cols) {
+        this.rows = rows;
+        this.cols = cols;
+        Fill();
+        wireworld = new Case[rows][cols];
+    }
+
+    public World() {
+
+    }
 
     public void Fill() {
         for( int i = 0 ; i < 100 ; i++){

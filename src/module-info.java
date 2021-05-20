@@ -3,4 +3,5 @@ module Wireworld {
     requires javafx.controls;
 
     opens GUI;
+    opens GUI.controllers;
 }

@@ -1,36 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller">
-    <columnConstraints>
-        <ColumnConstraints />
-    </columnConstraints>
-    <rowConstraints>
-        <RowConstraints />
-    </rowConstraints>
-    <children>
-        <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="980.0" prefWidth="1820.0">
-            <center>
-                <ScrollPane fx:id="scroll" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" style="-fx-background: #303030;" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
-                            <children>
-                                <Button layoutX="605.0" layoutY="369.0" mnemonicParsing="false" onAction="#loadFile" text="Load file..." />
-                            </children></AnchorPane>
-                    </content>
-                </ScrollPane>
-            </center>
-            <left>
-                <VBox prefHeight="980.0" prefWidth="54.0" BorderPane.alignment="CENTER">
-                    <children>
-                        <Button mnemonicParsing="false" text="Start" />
-                        <Label text="Iterations:" />
-                        <TextField text="10" />
-                        <Button mnemonicParsing="false" onAction="#saveFile" text="Save" />
-                    </children>
-                </VBox>
-            </left></BorderPane>
-    </children>
-</GridPane>
+<BorderPane fx:id="root" prefHeight="980.0" prefWidth="1820.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller">
+    <top>
+        <HBox alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="1820.0" styleClass="menu" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets />
+            </BorderPane.margin>
+            <Button fx:id="playBtn" onAction="#start" prefHeight="38.0" prefWidth="31.0" styleClass="btn">
+                <graphic>
+                    <Region styleClass="icon" />
+                </graphic>
+                <HBox.margin>
+                    <Insets right="20.0" />
+                </HBox.margin>
+            </Button>
+            <Label alignment="CENTER" text="Iterations:">
+                <HBox.margin>
+                    <Insets right="20.0" />
+                </HBox.margin></Label>
+            <TextField fx:id="iterationsField" prefHeight="25.0" prefWidth="74.0" styleClass="menuitem" text="10">
+                <HBox.margin>
+                    <Insets right="20.0" />
+                </HBox.margin></TextField>
+            <Button fx:id="saveBtn" onAction="#saveFile" mnemonicParsing="false" prefHeight="35.0" prefWidth="36.0" styleClass="btn">
+                <graphic>
+                    <Region styleClass="icon">
+                        <padding>
+                            <Insets right="20.0" />
+                        </padding></Region>
+                </graphic>
+            </Button>
+            <Button fx:id="settingsBtn" mnemonicParsing="false" onAction="#displaySettings" prefHeight="35.0" prefWidth="36.0" styleClass="btn">
+                <graphic>
+                    <Region styleClass="icon">
+                        <padding>
+                            <Insets right="20.0" />
+                        </padding></Region>
+                </graphic>
+            </Button>
+        </HBox>
+    </top>
+    <center>
+        <AnchorPane minWidth="0.0" prefHeight="926.0" prefWidth="1764.0" styleClass="anchor-pane">
+
+            <ScrollPane fx:id="scroll" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefViewportHeight="200.0" prefViewportWidth="200.0" prefWidth="200.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" BorderPane.alignment="CENTER">
+                <GridPane fx:id="initView">
+                    <columnConstraints>
+                        <ColumnConstraints />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints />
+                    </rowConstraints>
+                    <HBox alignment="CENTER" prefHeight="969.0" prefWidth="1778.0">
+                        <Button fx:id="newWorldBtn" mnemonicParsing="false" onAction="#displayNewWorld" styleClass="btn" text="   Create new">
+                            <graphic>
+                                <Region styleClass="icon" />
+                            </graphic>
+                        </Button>
+                        <Label text="or" textFill="WHITE">
+                            <HBox.margin>
+                                <Insets left="20.0" right="20.0" />
+                            </HBox.margin>
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Label>
+                        <Button fx:id="loadBtn" mnemonicParsing="false" onAction="#loadFile" styleClass="btn" text="   Open">
+                            <graphic>
+                                <Region styleClass="icon" />
+                            </graphic>
+                        </Button>
+                    </HBox>
+                </GridPane>
+            </ScrollPane>
+            <Button fx:id="clearBtn" mnemonicParsing="false" onAction="#resetStage" prefHeight="25.0" prefWidth="43.0" styleClass="btn" text="Clear" visible="false" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <graphic>
+                    <Region styleClass="icon" />
+                </graphic>
+            </Button>
+        </AnchorPane>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="1820.0" styleClass="bottom" BorderPane.alignment="CENTER">
+            <Label fx:id="positionInfo" alignment="CENTER_RIGHT" text="Row: 0 Col: 0">
+                <HBox.margin>
+                    <Insets right="30.0" />
+                </HBox.margin>
+            </Label>
+            <Label fx:id="zoomInfo" text="1:1" />
+        </HBox>
+    </bottom></BorderPane>

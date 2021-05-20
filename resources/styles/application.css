@@ -1,0 +1,116 @@
+#root {
+    -fx-background-color: #303030;
+}
+
+.scroll-pane {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: #000000;
+}
+
+.scroll-pane:focused {
+    -fx-background-insets: 0;
+}
+
+.scroll-pane .corner {
+    -fx-background-insets: 0;
+}
+
+#initView {
+    -fx-background-color: #303030;
+}
+
+#root .label {
+    -fx-text-fill: #ffffff;
+}
+.btn {
+    -icon-paint: green;
+    -fx-content-display: graphic-only;
+    -fx-background-color: transparent;
+}
+
+.btn:hover {
+    -icon-paint: #06170e;
+}
+
+.bottom {
+    -fx-border-style: solid hidden hidden hidden;
+    -fx-border-width: 0.5;
+    -fx-border-color: #505050;
+}
+
+.menu {
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-width: 0.5;
+    -fx-border-color: #505050;
+    -fx-padding: 7;
+}
+
+#playBtn .icon {
+    -fx-shape: "M16 10v28l22-14z";
+}
+
+#settingsBtn .icon {
+    -fx-shape: "M38.86 25.95c.08-.64.14-1.29.14-1.95s-.06-1.31-.14-1.95l4.23-3.31c.38-.3.49-.84.24-1.28l-4-6.93c-.25-.43-.77-.61-1.22-.43l-4.98 2.01c-1.03-.79-2.16-1.46-3.38-1.97L29 4.84c-.09-.47-.5-.84-1-.84h-8c-.5 0-.91.37-.99.84l-.75 5.3c-1.22.51-2.35 1.17-3.38 1.97L9.9 10.1c-.45-.17-.97 0-1.22.43l-4 6.93c-.25.43-.14.97.24 1.28l4.22 3.31C9.06 22.69 9 23.34 9 24s.06 1.31.14 1.95l-4.22 3.31c-.38.3-.49.84-.24 1.28l4 6.93c.25.43.77.61 1.22.43l4.98-2.01c1.03.79 2.16 1.46 3.38 1.97l.75 5.3c.08.47.49.84.99.84h8c.5 0 .91-.37.99-.84l.75-5.3c1.22-.51 2.35-1.17 3.38-1.97l4.98 2.01c.45.17.97 0 1.22-.43l4-6.93c.25-.43.14-.97-.24-1.28l-4.22-3.31zM24 31c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z";
+}
+
+#saveBtn .icon {
+    -fx-shape: "M22,4h-2v6c0,0.552-0.448,1-1,1h-9c-0.552,0-1-0.448-1-1V4H6C4.895,4,4,4.895,4,6v18c0,1.105,0.895,2,2,2h18  c1.105,0,2-0.895,2-2V8L22,4z M22,24H8v-6c0-1.105,0.895-2,2-2h10c1.105,0,2,0.895,2,2V24z";
+}
+
+#clearBtn {
+    -fx-background-color: transparent;
+    -icon-paint: white;
+}
+
+.menuitem {
+    -fx-margin: 20 0 20 0;
+}
+
+#iterationsField {
+    -fx-background-color: #404040;
+    -fx-text-inner-color: white;
+}
+
+#clearBtn .icon {
+    -fx-shape: "M17.459,16.014l8.239-8.194c0.395-0.391,0.395-1.024,0-1.414c-0.394-0.391-1.034-0.391-1.428,0  l-8.232,8.187L7.73,6.284c-0.394-0.395-1.034-0.395-1.428,0c-0.394,0.396-0.394,1.037,0,1.432l8.302,8.303l-8.332,8.286  c-0.394,0.391-0.394,1.024,0,1.414c0.394,0.391,1.034,0.391,1.428,0l8.325-8.279l8.275,8.276c0.394,0.395,1.034,0.395,1.428,0  c0.394-0.396,0.394-1.037,0-1.432L17.459,16.014z";
+}
+
+#loadBtn .icon {
+    -size:24;
+    -fx-shape: "M40 12h-16l-4-4h-12c-2.21 0-3.98 1.79-3.98 4l-.02 24c0 2.21 1.79 4 4 4h32c2.21 0 4-1.79 4-4v-20c0-2.21-1.79-4-4-4zm0 24h-32v-20h32v20z";
+}
+
+#newWorldBtn .icon {
+    -size:24;
+    -fx-shape: "M384,265H264v119h-17V265H128v-17h119V128h17v120h120V265z";
+}
+.icon {
+        -fx-background-color: -icon-paint;
+        -size: 14;
+        -fx-min-height: -size;
+        -fx-min-width: -size;
+        -fx-max-height: -size;
+        -fx-max-width: -size;
+}
+
+#newWorldBtn, #loadBtn {
+    -icon-paint: white;
+    -fx-border-style: solid solid solid solid;
+    -fx-border-width: 3;
+    -fx-border-radius: 3;
+    -fx-border-color: white;
+    -fx-padding: 15;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 18;
+    -size:24;
+    -fx-content-display:left;
+}
+#newWorldBtn:hover, #loadBtn:hover {
+    -fx-border-color: green;
+    -icon-paint: green;
+    -fx-text-fill: green;
+}
