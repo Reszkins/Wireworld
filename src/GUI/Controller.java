@@ -14,6 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -37,6 +38,8 @@ public class Controller implements Initializable {
     private Button clearBtn;
     @FXML
     private GridPane initView;
+    @FXML
+    private TextField iterationsField;
 
     private World world;
 
@@ -148,6 +151,25 @@ public class Controller implements Initializable {
     public void resetStage() {
         scroll.setContent(initView);
         clearBtn.setVisible(false);
+    }
+
+    @FXML
+    public void start() {
+        int iterations = Integer.parseInt(iterationsField.getText());
+        Runnable runnable = () -> {
+          try {
+              for(int i=0; i<iterations; i++) {
+                  world.NextIteration();
+                  worldCanvas.drawWorld();
+                  Thread.sleep(300);
+              }
+          } catch (InterruptedException e) {
+              e.printStackTrace();
+          }
+        };
+
+        Thread thread = new Thread(runnable);
+        thread.start();
     }
 }
 

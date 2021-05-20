@@ -11,7 +11,7 @@
             <BorderPane.margin>
                 <Insets />
             </BorderPane.margin>
-            <Button fx:id="playBtn" mnemonicParsing="false" prefHeight="38.0" prefWidth="31.0" styleClass="btn">
+            <Button fx:id="playBtn" onAction="#start" prefHeight="38.0" prefWidth="31.0" styleClass="btn">
                 <graphic>
                     <Region styleClass="icon" />
                 </graphic>
