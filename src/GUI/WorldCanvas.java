@@ -85,11 +85,11 @@ public class WorldCanvas extends Canvas {
 
     private void drawGridLines() {
         gc.setFill(Color.WHITE);
-        for( int i = 1 ; i < cols ; i++){
-            for( int j = 1 ; j < rows ; j++) {
-                gc.fillRect(0, getPos(j)-borderSize*rectangleSize, getHeight(), borderSize*rectangleSize);
+        for( int i = 1 ; i < rows ; i++){
+            for( int j = 1 ; j < cols ; j++) {
+                gc.fillRect(0, getPos(j)-borderSize*rectangleSize, getWidth(), borderSize*rectangleSize);
             }
-            gc.fillRect(getPos(i)-borderSize*rectangleSize, 0, borderSize*rectangleSize, getWidth());
+            gc.fillRect(getPos(i)-borderSize*rectangleSize, 0, borderSize*rectangleSize, getHeight());
         }
     }
 

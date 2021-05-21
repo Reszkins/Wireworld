@@ -1,5 +1,6 @@
 package Wireworld.Components;
 
+import GUI.Controller;
 import Wireworld.World;
 
 import java.util.Arrays;
@@ -59,6 +60,7 @@ public class AndNoGate extends Component {
                     }
                 }
             }
+            default -> Controller.displayError("Błąd w parametrach komponentu (AndNoGate)!");
         }
         return world;
     }

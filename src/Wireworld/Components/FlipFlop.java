@@ -1,5 +1,6 @@
 package Wireworld.Components;
 
+import GUI.Controller;
 import Wireworld.World;
 
 import java.util.Arrays;
@@ -65,6 +66,7 @@ public class FlipFlop extends Component {
                     }
                 }
             }
+            default -> Controller.displayError("Błąd w parametrach komponentu (FlipFlop)!");
         }
         return world;
     }

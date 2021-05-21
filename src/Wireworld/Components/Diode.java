@@ -1,5 +1,6 @@
 package Wireworld.Components;
 
+import GUI.Controller;
 import Wireworld.World;
 
 import java.util.Arrays;
@@ -50,6 +51,7 @@ public class Diode extends Component {
                     }
                 }
             }
+            default -> Controller.displayError("Błąd w parametrach komponentu (Dioda)!");
         }
 
         return world;
