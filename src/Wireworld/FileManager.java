@@ -1,5 +1,6 @@
 package Wireworld;
 
+import GUI.Controller;
 import Wireworld.Components.*;
 
 import java.io.*;
@@ -15,18 +16,11 @@ public class FileManager {
         String filePath = path;
 
         world.Fill();
-      /*  for( int i = 0 ; i < 100 ; i++){
-            for( int j = 0 ; j < 100 ; j++){
-                System.out.print(world.wireworld[j][i]+" ");
-            }
-            System.out.println();
-        }*/
 
         try {
             fileReader = new BufferedReader(new FileReader(filePath));
         } catch (FileNotFoundException e) {
-            System.out.println("Błąd podczas próby otwarcia pliku!");
-            System.exit(1);
+            Controller.displayError("Błąd podczas próby otwarcia pliku!");
         }
 
         try {
@@ -91,30 +85,125 @@ public class FileManager {
                         world = Electron.Electron(type,Integer.parseInt(x),Integer.parseInt(y),world);
                         break;
                     default:
-                        System.out.println("Błąd danych wejściowych!");
-                        System.exit(4);
+                        Controller.displayError("Błedne dane wejściowe!");
                         break;
                 }
             }
         } catch (IOException e) {
-            System.out.println("Błąd podczas odczytywania pliku!");
-            System.exit(2);
+            Controller.displayError("Błąd podczas odczytywania pliku!");
         }
 
         try {
             fileReader.close();
         } catch (IOException e) {
-            System.out.println("Błąd podczas zamykania pliku!");
-            System.exit(3);
+            Controller.displayError("Błąd podczas zamykania pliku!");
         }
 
-       /* for( int i = 0 ; i < 100 ; i++){
-            for( int j = 0 ; j < 100 ; j++){
-                System.out.print(world.wireworld[j][i]+" ");
-            }
-            System.out.println();
-        }*/
         return world;
+    }
+
+    public void AddComponentToWorld(String element, ArrayList<String> args){
+        String[] arguments = new String[5];
+        String position, direction, x, y, line, x2, y2, type;
+        int i;
+
+        switch (element) {
+            case "Diode":
+                i=0;
+                for(String tmp : args){
+                    arguments[i] = tmp;
+                    i++;
+                }
+
+                position = arguments[1];
+                direction = arguments[2];
+                x = arguments[3];
+                y = arguments[4];
+                line = "Diode, "+arguments[1]+", "+arguments[2]+", "+arguments[3]+", "+arguments[4];
+                list.add(line);
+                world = Diode.Diode(position, direction, Integer.parseInt(x), Integer.parseInt(y), world);
+                break;
+            case "OrGate":
+                i=0;
+                for(String tmp : args){
+                    arguments[i] = tmp;
+                    i++;
+                }
+
+                position = arguments[1].substring(1);
+                direction = arguments[2].substring(1);
+                x = arguments[3].substring(1);
+                y = arguments[4].substring(1);
+                line = "OrGate, "+arguments[1]+", "+arguments[2]+", "+arguments[3]+", "+arguments[4];
+                list.add(line);
+                world = OrGate.OrGate(position, direction, Integer.parseInt(x), Integer.parseInt(y), world);
+                break;
+            case "AndNoGate":
+                i=0;
+                for(String tmp : args){
+                    arguments[i] = tmp;
+                    i++;
+                }
+
+                position = arguments[1].substring(1);
+                direction = arguments[2].substring(1);
+                x = arguments[3].substring(1);
+                y = arguments[4].substring(1);
+                line = "AndNoGate, "+arguments[1]+", "+arguments[2]+", "+arguments[3]+", "+arguments[4];
+                list.add(line);
+                world = AndNoGate.AndNoGate(position, direction, Integer.parseInt(x), Integer.parseInt(y), world);
+                break;
+            case "FlipFlop":
+                i=0;
+                for(String tmp : args){
+                    arguments[i] = tmp;
+                    i++;
+                }
+
+                position = arguments[1].substring(1);
+                direction = arguments[2].substring(1);
+                x = arguments[3].substring(1);
+                y = arguments[4].substring(1);
+                line = "FlipFlop, "+arguments[1]+", "+arguments[2]+", "+arguments[3]+", "+arguments[4];
+                list.add(line);
+                world = FlipFlop.FlipFlop(position, direction, Integer.parseInt(x), Integer.parseInt(y), world);
+                break;
+            case "Generator":
+                i=0;
+                for(String tmp : args){
+                    arguments[i] = tmp;
+                    i++;
+                }
+
+                position = arguments[1].substring(1);
+                x = arguments[2].substring(1);
+                y = arguments[3].substring(1);
+                line = "Generator, "+arguments[1]+", "+arguments[2]+", "+arguments[3]+", "+arguments[4];
+                list.add(line);
+                world = Generator.Generator(position, Integer.parseInt(x), Integer.parseInt(y), world);
+                break;
+            case "Wire":
+                i=0;
+                for(String tmp : args){
+                    arguments[i] = tmp;
+                    i++;
+                }
+
+                x = arguments[1].substring(1);
+                y = arguments[2].substring(1);
+                x2 = arguments[3].substring(1);
+                y2 = arguments[4].substring(1);
+                line = "Wire, "+arguments[1]+", "+arguments[2]+", "+arguments[3]+", "+arguments[4];
+                list.add(line);
+                world = Wire.Wire(Integer.parseInt(x), Integer.parseInt(y), Integer.parseInt(x2), Integer.parseInt(y2), world);
+                break;
+            case "Electron":
+                type = arguments[1].substring(1);
+                x = arguments[2].substring(1);
+                y = arguments[3].substring(1);
+                world = Electron.Electron(type, Integer.parseInt(x), Integer.parseInt(y), world);
+                break;
+        }
     }
 
     public static void WriteToFile(String path, World world) {
@@ -123,8 +212,7 @@ public class FileManager {
         try{
             writer = new BufferedWriter(new FileWriter(path));
         } catch (IOException e){
-            System.out.println("Błąd podczas tworzenia pliku!");
-            System.exit(5);
+            Controller.displayError("Błąd podczas tworzenia pliku!");
         }
         try{
             for(String line : list){
@@ -133,8 +221,7 @@ public class FileManager {
             }
 
         } catch (IOException e){
-            System.out.println("Błąd podczas tworzenia pliku!");
-            System.exit(5);
+            Controller.displayError("Błąd podczas tworzenia pliku!");
         }
 
         for(int i=0;i<100;++i){
@@ -145,8 +232,7 @@ public class FileManager {
                         writer.write(line);
                         writer.write("\n");
                     } catch (IOException e) {
-                        System.out.println("Błąd podczas tworzenia pliku! (ElectronH)");
-                        System.exit(5);
+                        Controller.displayError("Błąd podczas tworzenia pliku!");
                     }
                 }
                 if(world.wireworld[i][j] == Cells.Case.ELECTRON_TAIL) {
@@ -155,8 +241,7 @@ public class FileManager {
                         writer.write(line);
                         writer.write("\n");
                     } catch (IOException e) {
-                        System.out.println("Błąd podczas tworzenia pliku! (ElectronT)");
-                        System.exit(5);
+                        Controller.displayError("Błąd podczas tworzenia pliku!");
                     }
                 }
 
@@ -165,10 +250,7 @@ public class FileManager {
         try{
             writer.close();
         } catch (IOException e) {
-            System.out.println("Błąd podczas tworzenia pliku!");
-            System.exit(5);
+            Controller.displayError("Błąd podczas tworzenia pliku!");
         }
-
     }
-
 }

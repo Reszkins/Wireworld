@@ -1,5 +1,6 @@
 package Wireworld.Components;
 
+import GUI.Controller;
 import Wireworld.World;
 
 import java.util.Arrays;
@@ -41,7 +42,9 @@ public class Generator extends Component {
                 generatorVertical = FillVertical(generatorVertical, generatorHorizontal);
                 world = World.Merge(world, generatorVertical, x, y);
             }
+            default -> Controller.displayError("Błąd w parametrach komponentu (Generator)!");
         }
+
 
         return world;
     }

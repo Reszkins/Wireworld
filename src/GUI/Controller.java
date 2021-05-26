@@ -171,5 +171,16 @@ public class Controller implements Initializable {
         Thread thread = new Thread(runnable);
         thread.start();
     }
+
+    public static void displayError(String errorText) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(errorText);
+
+        alert.showAndWait();
+
+        System.exit(2);
+    }
 }
 
