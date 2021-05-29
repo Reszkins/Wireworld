@@ -7,14 +7,14 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class FileManager {
-    static ArrayList<String> list = new ArrayList<String>();
-    static World world = new World();
+    public World world;
 
-    public static World ReadFromFile(String path){
+    public World ReadFromFile(String path){
         String line;
         BufferedReader fileReader = null;
         String filePath = path;
 
+        world = new World();
         world.Fill();
 
         try {
@@ -26,62 +26,63 @@ public class FileManager {
         try {
             while((line = fileReader.readLine()) != null){
                 System.out.println(line);
+                line = line.replaceAll("\\s+","");
                 String[] arguments = line.split(",");
                 String element = arguments[0];
                 String position, direction, x, y, x2, y2, type;
 
                 switch (element){
                     case "Diode":
-                        list.add(line);
-                        position = arguments[1].substring(1);
-                        direction = arguments[2].substring(1);
-                        x = arguments[3].substring(1);
-                        y = arguments[4].substring(1);
+                        world.list.add(line);
+                        position = arguments[1];
+                        direction = arguments[2];
+                        x = arguments[3];
+                        y = arguments[4];
                         world = Diode.Diode(position,direction,Integer.parseInt(x),Integer.parseInt(y),world);
                         break;
                     case "OrGate":
-                        list.add(line);
-                        position = arguments[1].substring(1);
-                        direction = arguments[2].substring(1);
-                        x = arguments[3].substring(1);
-                        y = arguments[4].substring(1);
+                        world.list.add(line);
+                        position = arguments[1];
+                        direction = arguments[2];
+                        x = arguments[3];
+                        y = arguments[4];
                         world = OrGate.OrGate(position,direction,Integer.parseInt(x),Integer.parseInt(y),world);
                         break;
                     case "AndNoGate":
-                        list.add(line);
-                        position = arguments[1].substring(1);
-                        direction = arguments[2].substring(1);
-                        x = arguments[3].substring(1);
-                        y = arguments[4].substring(1);
+                        world.list.add(line);
+                        position = arguments[1];
+                        direction = arguments[2];
+                        x = arguments[3];
+                        y = arguments[4];
                         world = AndNoGate.AndNoGate(position,direction,Integer.parseInt(x),Integer.parseInt(y),world);
                         break;
                     case "FlipFlop":
-                        list.add(line);
-                        position = arguments[1].substring(1);
-                        direction = arguments[2].substring(1);
-                        x = arguments[3].substring(1);
-                        y = arguments[4].substring(1);
+                        world.list.add(line);
+                        position = arguments[1];
+                        direction = arguments[2];
+                        x = arguments[3];
+                        y = arguments[4];
                         world = FlipFlop.FlipFlop(position,direction,Integer.parseInt(x),Integer.parseInt(y),world);
                         break;
                     case "Generator":
-                        list.add(line);
-                        position = arguments[1].substring(1);
-                        x = arguments[2].substring(1);
-                        y = arguments[3].substring(1);
+                        world.list.add(line);
+                        position = arguments[1];
+                        x = arguments[2];
+                        y = arguments[3];
                         world = Generator.Generator(position,Integer.parseInt(x),Integer.parseInt(y),world);
                         break;
                     case "Wire":
-                        list.add(line);
-                        x = arguments[1].substring(1);
-                        y = arguments[2].substring(1);
-                        x2 = arguments[3].substring(1);
-                        y2 = arguments[4].substring(1);
+                        world.list.add(line);
+                        x = arguments[1];
+                        y = arguments[2];
+                        x2 = arguments[3];
+                        y2 = arguments[4];
                         world = Wire.Wire(Integer.parseInt(x),Integer.parseInt(y),Integer.parseInt(x2),Integer.parseInt(y2),world);
                         break;
                     case "Electron":
-                        type = arguments[1].substring(1);
-                        x = arguments[2].substring(1);
-                        y = arguments[3].substring(1);
+                        type = arguments[1];
+                        x = arguments[2];
+                        y = arguments[3];
                         world = Electron.Electron(type,Integer.parseInt(x),Integer.parseInt(y),world);
                         break;
                     default:
@@ -120,7 +121,7 @@ public class FileManager {
                 x = arguments[3];
                 y = arguments[4];
                 line = "Diode, "+arguments[1]+", "+arguments[2]+", "+arguments[3]+", "+arguments[4];
-                list.add(line);
+                world.list.add(line);
                 world = Diode.Diode(position, direction, Integer.parseInt(x), Integer.parseInt(y), world);
                 break;
             case "OrGate":
@@ -135,7 +136,7 @@ public class FileManager {
                 x = arguments[3].substring(1);
                 y = arguments[4].substring(1);
                 line = "OrGate, "+arguments[1]+", "+arguments[2]+", "+arguments[3]+", "+arguments[4];
-                list.add(line);
+                world.list.add(line);
                 world = OrGate.OrGate(position, direction, Integer.parseInt(x), Integer.parseInt(y), world);
                 break;
             case "AndNoGate":
@@ -150,7 +151,7 @@ public class FileManager {
                 x = arguments[3].substring(1);
                 y = arguments[4].substring(1);
                 line = "AndNoGate, "+arguments[1]+", "+arguments[2]+", "+arguments[3]+", "+arguments[4];
-                list.add(line);
+                world.list.add(line);
                 world = AndNoGate.AndNoGate(position, direction, Integer.parseInt(x), Integer.parseInt(y), world);
                 break;
             case "FlipFlop":
@@ -165,7 +166,7 @@ public class FileManager {
                 x = arguments[3].substring(1);
                 y = arguments[4].substring(1);
                 line = "FlipFlop, "+arguments[1]+", "+arguments[2]+", "+arguments[3]+", "+arguments[4];
-                list.add(line);
+                world.list.add(line);
                 world = FlipFlop.FlipFlop(position, direction, Integer.parseInt(x), Integer.parseInt(y), world);
                 break;
             case "Generator":
@@ -179,7 +180,7 @@ public class FileManager {
                 x = arguments[2].substring(1);
                 y = arguments[3].substring(1);
                 line = "Generator, "+arguments[1]+", "+arguments[2]+", "+arguments[3]+", "+arguments[4];
-                list.add(line);
+                world.list.add(line);
                 world = Generator.Generator(position, Integer.parseInt(x), Integer.parseInt(y), world);
                 break;
             case "Wire":
@@ -194,7 +195,7 @@ public class FileManager {
                 x2 = arguments[3].substring(1);
                 y2 = arguments[4].substring(1);
                 line = "Wire, "+arguments[1]+", "+arguments[2]+", "+arguments[3]+", "+arguments[4];
-                list.add(line);
+                world.list.add(line);
                 world = Wire.Wire(Integer.parseInt(x), Integer.parseInt(y), Integer.parseInt(x2), Integer.parseInt(y2), world);
                 break;
             case "Electron":
@@ -215,7 +216,7 @@ public class FileManager {
             Controller.displayError("Błąd podczas tworzenia pliku!");
         }
         try{
-            for(String line : list){
+            for(String line : world.list){
                 writer.write(line);
                 writer.write("\n");
             }
