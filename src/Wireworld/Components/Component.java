@@ -1,36 +1,39 @@
 package Wireworld.Components;
 
+import GUI.Controller;
+import Wireworld.utils.ArrayHelper;
+
 public class Component {
-    public static boolean[][] Reverse(String position, boolean[][] element){
-        switch(position) {
-            case "Horizontal":
-                for(int i=0;i<element.length/2;i++){
-                    for(int j=0;j<element[0].length;j++){
-                        boolean tmp = element[i][j];
-                        element[i][j] = element[element.length-i-1][j];
-                        element[element.length-i-1][j] = tmp;
-                    }
-                }
-                break;
-            case "Vertical":
-                for(int i=0;i<element[0].length/2;i++){
-                    for(int j=0;j<element.length;j++){
-                        boolean tmp = element[j][i];
-                        element[j][i] = element[j][element[0].length-i-1];
-                        element[j][element[0].length-i-1] = tmp;
-                    }
-                }
-                break;
-        }
-        return element;
+    public static boolean[][] element;
+    public int startX;
+    public int startY;
+
+    public Component() {
     }
 
-    public static boolean[][] FillVertical(boolean[][] elementVertical,boolean[][] elementHorizontal){
-        for(int i=0;i<elementHorizontal.length;++i){
-            for(int j=0;j< elementHorizontal[0].length;++j){
-                elementVertical[j][i] = elementHorizontal[i][j];
+    public void adjustElement(String position, String direction, int x, int y) {
+        switch (position) {
+            case "Horizontal" -> {
+                switch (direction) {
+                    case "Reversed" -> {
+                        element = ArrayHelper.mirrorHorizontal(element);
+                    }
+                }
             }
+            case "Vertical" -> {
+                element = ArrayHelper.rotate(element);
+                int tmp;
+                tmp = startX;
+                startX = startY;
+                startY = tmp;
+                switch (direction) {
+                    case "Reversed" -> {
+                        element = ArrayHelper.mirrorVertical(element);
+                    }
+                }
+            }
+            default -> Controller.displayError("Błąd w parametrach komponentu (" + this.getClass().getName() + ")!");
         }
-        return elementVertical;
     }
+
 }

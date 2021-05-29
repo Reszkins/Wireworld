@@ -33,20 +33,19 @@ public class World extends Cells {
         }
     }
 
-    public static World Merge(World world, boolean[][] element, int x, int y){
+    public void Merge(boolean[][] element, int x, int y){
         for(int i = x ; i < x + element.length ; i++) {
             for(int j = y ; j < y + element[1].length ; j++) {
-                if(i >= world.rows || j>= world.cols){
+                if(i >= rows || j>= cols){
                     Controller.displayError("Błędne dane wejściowe - komponenty wychodzą poza planszę!");
                 }
                 if(element[i-x][j-y]){
-                    if(world.wireworld[i][j] == Case.WIRE)
+                    if(wireworld[i][j] == Case.WIRE)
                         Controller.displayError("Błędne dane wejściowe - komponenty nachodzą na siebie!");
-                    else world.wireworld[i][j] = Case.WIRE;
+                    else wireworld[i][j] = Case.WIRE;
                 }
             }
         }
-        return world;
     }
 
     public void NextIteration(){

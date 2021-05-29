@@ -30,7 +30,7 @@ public class FileManager {
                 String[] arguments = line.split(",");
                 String element = arguments[0];
                 String position, direction, x, y, x2, y2, type;
-
+                Component c;
                 switch (element){
                     case "Diode":
                         world.list.add(line);
@@ -38,7 +38,8 @@ public class FileManager {
                         direction = arguments[2];
                         x = arguments[3];
                         y = arguments[4];
-                        world = Diode.Diode(position,direction,Integer.parseInt(x),Integer.parseInt(y),world);
+                        c = new Diode(position,direction,Integer.parseInt(x),Integer.parseInt(y));
+                        world.Merge(c.element, Integer.parseInt(x)- c.startX, Integer.parseInt(y)- c.startY);
                         break;
                     case "OrGate":
                         world.list.add(line);
@@ -46,7 +47,8 @@ public class FileManager {
                         direction = arguments[2];
                         x = arguments[3];
                         y = arguments[4];
-                        world = OrGate.OrGate(position,direction,Integer.parseInt(x),Integer.parseInt(y),world);
+                        c = new OrGate(position,direction,Integer.parseInt(x),Integer.parseInt(y));
+                        world.Merge(c.element, Integer.parseInt(x)- c.startX, Integer.parseInt(y)- c.startY);
                         break;
                     case "AndNoGate":
                         world.list.add(line);
@@ -54,7 +56,8 @@ public class FileManager {
                         direction = arguments[2];
                         x = arguments[3];
                         y = arguments[4];
-                        world = AndNoGate.AndNoGate(position,direction,Integer.parseInt(x),Integer.parseInt(y),world);
+                        c = new AndNoGate(position,direction,Integer.parseInt(x),Integer.parseInt(y));
+                        world.Merge(c.element, Integer.parseInt(x)- c.startX, Integer.parseInt(y)- c.startY);
                         break;
                     case "FlipFlop":
                         world.list.add(line);
@@ -62,14 +65,16 @@ public class FileManager {
                         direction = arguments[2];
                         x = arguments[3];
                         y = arguments[4];
-                        world = FlipFlop.FlipFlop(position,direction,Integer.parseInt(x),Integer.parseInt(y),world);
+                        c = new FlipFlop(position,direction,Integer.parseInt(x),Integer.parseInt(y));
+                        world.Merge(c.element, Integer.parseInt(x)- c.startX, Integer.parseInt(y)- c.startY);
                         break;
                     case "Generator":
                         world.list.add(line);
                         position = arguments[1];
                         x = arguments[2];
                         y = arguments[3];
-                        world = Generator.Generator(position,Integer.parseInt(x),Integer.parseInt(y),world);
+                        c = new Generator(position,"Normal",Integer.parseInt(x),Integer.parseInt(y));
+                        world.Merge(c.element, Integer.parseInt(x)- c.startX, Integer.parseInt(y)- c.startY);
                         break;
                     case "Wire":
                         world.list.add(line);
@@ -77,13 +82,13 @@ public class FileManager {
                         y = arguments[2];
                         x2 = arguments[3];
                         y2 = arguments[4];
-                        world = Wire.Wire(Integer.parseInt(x),Integer.parseInt(y),Integer.parseInt(x2),Integer.parseInt(y2),world);
+                        Wire.Wire(Integer.parseInt(x),Integer.parseInt(y),Integer.parseInt(x2),Integer.parseInt(y2),world);
                         break;
                     case "Electron":
                         type = arguments[1];
                         x = arguments[2];
                         y = arguments[3];
-                        world = Electron.Electron(type,Integer.parseInt(x),Integer.parseInt(y),world);
+                        Electron.Electron(type,Integer.parseInt(x),Integer.parseInt(y),world);
                         break;
                     default:
                         Controller.displayError("Błedne dane wejściowe!");
@@ -103,7 +108,7 @@ public class FileManager {
         return world;
     }
 
-    public void AddComponentToWorld(String element, ArrayList<String> args){
+    /*public void AddComponentToWorld(String element, ArrayList<String> args){
         String[] arguments = new String[5];
         String position, direction, x, y, line, x2, y2, type;
         int i;
@@ -205,7 +210,7 @@ public class FileManager {
                 world = Electron.Electron(type, Integer.parseInt(x), Integer.parseInt(y), world);
                 break;
         }
-    }
+    }*/
 
     public static void WriteToFile(String path, World world) {
         BufferedWriter writer = null;
