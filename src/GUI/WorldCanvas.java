@@ -7,9 +7,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 
 public class WorldCanvas extends Canvas {
@@ -121,8 +118,8 @@ public class WorldCanvas extends Canvas {
         if( getDimensions(rows) > viewPortHeight || getDimensions(cols) > viewportWidth) {
             rectangleSize = Math.pow(2, pow-1);
         }
-        rectangleSize*=2;
-        setScale(0.5);
+        rectangleSize*=4;
+        setScale(0.25);
     }
 
     public void setCanvasSize() {
@@ -154,6 +151,16 @@ public class WorldCanvas extends Canvas {
         zoomInfo.setText("1:" + (int)(scale*rectangleSize) );
     }
 
+    public void printGen() {
+        Label gen = (Label) getScene().lookup("#generation");
+        gen.setText("Gen: " + world.generation);
+    }
+
+    public World getWorld()
+    {
+        return world;
+    }
+
     public  void updateCanvas() {
         updateProperties();
         updateViewportSize();
@@ -162,6 +169,7 @@ public class WorldCanvas extends Canvas {
         setCanvasSize();
 
         centerCanvas();
+        drawGridLines();
         drawWorld();
     }
 }

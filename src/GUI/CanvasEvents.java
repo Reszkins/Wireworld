@@ -1,10 +1,8 @@
 package GUI;
 
 import javafx.event.EventHandler;
-import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.paint.Color;
 
 public class CanvasEvents {
     private double mouseAnchorX;
@@ -75,7 +73,7 @@ public class CanvasEvents {
 
             double dx = (scrollEvent.getX() - (canvas.getBoundsInParent().getWidth()/2 + canvas.getBoundsInParent().getMinX()));
             double dy = (scrollEvent.getY() - (canvas.getBoundsInParent().getHeight()/2 + canvas.getBoundsInParent().getMinY()));
-
+            System.out.println(dx);
             canvas.setScale(scale);
 
             canvas.setPivot(dx*f, dy*f);
@@ -83,15 +81,4 @@ public class CanvasEvents {
             scrollEvent.consume();
         }
     };
-
-    /*
-    private final EventHandler<MouseEvent> onClickEventHandler = new EventHandler<>() {
-        @Override
-        public void handle(MouseEvent mouseEvent) {
-            if(!mouseEvent.isSecondaryButtonDown())
-                return;
-            canvas.draw(canvas.getPositionByPixel(mouseEvent.getY()),canvas.getPositionByPixel(mouseEvent.getX()), Color.DARKRED);
-        }
-    };
-    */
 }
