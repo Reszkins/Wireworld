@@ -1,22 +1,28 @@
 package Wireworld;
 
 import GUI.Controller;
-import Wireworld.Components.*;
+
+import java.util.ArrayList;
 
 public class World extends Cells {
-    public int rows = 100;
-    public int cols = 100;
-    public static Case[][] wireworld = new Case[100][100];
+    public int rows;
+    public int cols;
+    public int generation;
+    public Case[][] wireworld;
+
+    public ArrayList<String> list;
 
     public World(int rows, int cols) {
         this.rows = rows;
         this.cols = cols;
+        generation = 0;
         wireworld = new Case[rows][cols];
+        list = new ArrayList<>();
         Fill();
     }
 
     public World() {
-
+        this(100, 100);
     }
 
     public void Fill() {
@@ -27,20 +33,19 @@ public class World extends Cells {
         }
     }
 
-    public static World Merge(World world, boolean[][] element, int x, int y){
+    public void Merge(boolean[][] element, int x, int y){
         for(int i = x ; i < x + element.length ; i++) {
             for(int j = y ; j < y + element[1].length ; j++) {
-                if(i >= world.rows || j>= world.cols){
+                if(i >= rows || j>= cols){
                     Controller.displayError("Błędne dane wejściowe - komponenty wychodzą poza planszę!");
                 }
                 if(element[i-x][j-y]){
-                    if(world.wireworld[i][j] == Case.WIRE)
+                    if(wireworld[i][j] == Case.WIRE)
                         Controller.displayError("Błędne dane wejściowe - komponenty nachodzą na siebie!");
-                    else world.wireworld[i][j] = Case.WIRE;
+                    else wireworld[i][j] = Case.WIRE;
                 }
             }
         }
-        return world;
     }
 
     public void NextIteration(){
@@ -52,8 +57,7 @@ public class World extends Cells {
         }
         for(int i = 0; i < rows; i++){
             for(int j = 0; j < cols; j++){
-                if(wireworld[i][j] == Case.EMPTY);
-                else{
+                if(wireworld[i][j] != Case.EMPTY) {
                     if(wireworld[i][j] == Case.ELECTRON_HEAD)
                         wireworld[i][j] = Case.ELECTRON_TAIL;
                     else if(wireworld[i][j] == Case.ELECTRON_TAIL)
@@ -66,6 +70,7 @@ public class World extends Cells {
                 }
             }
         }
+        generation++;
     }
 
     private int CountElectronNeighbors(int x, int y, Case[][] tmp) {

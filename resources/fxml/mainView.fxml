@@ -19,6 +19,14 @@
                     <Insets right="20.0" />
                 </HBox.margin>
             </Button>
+            <Button fx:id="pauseBtn" onAction="#pause" prefHeight="38.0" prefWidth="31.0" styleClass="btn">
+                <graphic>
+                    <Region styleClass="icon" />
+                </graphic>
+                <HBox.margin>
+                    <Insets right="20.0" />
+                </HBox.margin>
+            </Button>
             <Label alignment="CENTER" text="Iterations:">
                 <HBox.margin>
                     <Insets right="20.0" />
@@ -87,6 +95,11 @@
     </center>
     <bottom>
         <HBox alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="1820.0" styleClass="bottom" BorderPane.alignment="CENTER">
+            <Label fx:id="generation" text="Gen: 0">
+                <HBox.margin>
+                    <Insets right="30.0" />
+                </HBox.margin>
+            </Label>
             <Label fx:id="positionInfo" alignment="CENTER_RIGHT" text="Row: 0 Col: 0">
                 <HBox.margin>
                     <Insets right="30.0" />

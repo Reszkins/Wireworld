@@ -1,5 +1,6 @@
 package GUI;
 
+import GUI.utils.PausableTask;
 import Wireworld.FileManager;
 import Wireworld.World;
 import javafx.fxml.FXML;
@@ -9,12 +10,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -26,6 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.concurrent.*;
 
 public class Controller implements Initializable {
     //@FXML
@@ -41,6 +40,9 @@ public class Controller implements Initializable {
     @FXML
     private TextField iterationsField;
 
+    private PausableTask task;
+    private ThreadPoolExecutor executor;
+
     private World world;
 
     @Override
@@ -50,14 +52,12 @@ public class Controller implements Initializable {
         worldCanvas.addEventFilter(ScrollEvent.SCROLL, events.getOnScrollEventHandler());
         worldCanvas.addEventFilter(MouseEvent.MOUSE_PRESSED, events.getOnMousePressedEventHandler());
         worldCanvas.addEventFilter(MouseEvent.MOUSE_DRAGGED, events.getOnMouseDraggedEventHandler());
-        //worldCanvas.addEventFilter(MouseEvent.MOUSE_PRESSED, events.getOnClickEventHandler());
         worldCanvas.addEventFilter(MouseEvent.MOUSE_MOVED, e -> {
             int row = worldCanvas.getPositionByPixel(e.getY());
             int col = worldCanvas.getPositionByPixel(e.getX());
             Label positionInfo = (Label) worldCanvas.getScene().lookup("#positionInfo");
-            positionInfo.setText("Row:" + row + " Col:" + col);
-            //worldCanvas.drawWorld();
-            //worldCanvas.draw(row,col, Color.BLUE);
+            positionInfo.setText("Row: " + row + " Col: " + col);
+
             e.consume();
         });
         scroll.addEventFilter(ScrollEvent.SCROLL, events.getOnScrollEventHandler());
@@ -85,7 +85,8 @@ public class Controller implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose input file.");
         File input = fileChooser.showOpenDialog(root.getScene().getWindow());
-        world = FileManager.ReadFromFile(input.getAbsolutePath());
+        FileManager fm = new FileManager();
+        world = fm.ReadFromFile(input.getAbsolutePath());
         InitWorldGrid();
     }
 
@@ -149,27 +150,33 @@ public class Controller implements Initializable {
 
     @FXML
     public void resetStage() {
+        world = null;
+        if(task != null) task.shutDown();
+        if(executor != null) executor.shutdownNow();
+        executor = null;
         scroll.setContent(initView);
         clearBtn.setVisible(false);
     }
 
     @FXML
     public void start() {
-        int iterations = Integer.parseInt(iterationsField.getText());
-        Runnable runnable = () -> {
-          try {
-              for(int i=0; i<iterations; i++) {
-                  world.NextIteration();
-                  worldCanvas.drawWorld();
-                  Thread.sleep(300);
-              }
-          } catch (InterruptedException e) {
-              e.printStackTrace();
-          }
-        };
+        if(executor == null) {
+            BlockingQueue<Runnable> queue = new ArrayBlockingQueue<>(1);
+            executor = new ThreadPoolExecutor(1,1,0, TimeUnit.SECONDS, queue);
+        }
+        if(executor.getActiveCount() == 0) {
+            int iterations = Integer.parseInt(iterationsField.getText());
+            task = new PausableTask(worldCanvas, iterations);
+            executor.execute(task);
+        }
+        else {
+            task.resume();
+        }
+    }
 
-        Thread thread = new Thread(runnable);
-        thread.start();
+    @FXML
+    public void pause() {
+        task.pause();
     }
 
     public static void displayError(String errorText) {

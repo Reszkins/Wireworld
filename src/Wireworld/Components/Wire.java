@@ -4,7 +4,7 @@ import Wireworld.Cells;
 import Wireworld.World;
 
 public class Wire {
-    public static World Wire(int x, int y, int x2, int y2, World world){
+    public static void Wire(int x, int y, int x2, int y2, World world){
         if( x > x2 ){
             int tmp = x;
             x = x2;
@@ -23,6 +23,5 @@ public class Wire {
             for(int i = y; i >= y2; i--)
                 world.wireworld[x2][i] = Cells.Case.WIRE;
         }
-        return world;
     }
 }
