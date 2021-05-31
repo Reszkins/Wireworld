@@ -1,7 +1,7 @@
 package Wireworld.Components;
 
 public class OrGate extends Component {
-    public OrGate(String position, String direction, int x, int y){
+    public OrGate(String position, String direction){
         element = new boolean[][]{
                 {true, false, false, false, true, },
                 {true, false, false, false, true, },
@@ -15,6 +15,6 @@ public class OrGate extends Component {
         };
         startX=0;
         startY=2;
-        adjustElement(position, direction, x, y);
+        adjustElement(position, direction);
     }
 }

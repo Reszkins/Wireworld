@@ -11,7 +11,7 @@ public class Component {
     public Component() {
     }
 
-    public void adjustElement(String position, String direction, int x, int y) {
+    public void adjustElement(String position, String direction) {
         switch (position) {
             case "Horizontal" -> {
                 switch (direction) {
