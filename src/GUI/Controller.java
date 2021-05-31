@@ -20,10 +20,7 @@ import javafx.stage.StageStyle;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.concurrent.*;
 
 public class Controller implements Initializable {
@@ -35,6 +32,8 @@ public class Controller implements Initializable {
     private ScrollPane scroll;
     @FXML
     private Button clearBtn;
+    @FXML
+    private Button addBtn;
     @FXML
     private GridPane initView;
     @FXML
@@ -63,6 +62,7 @@ public class Controller implements Initializable {
         scroll.addEventFilter(ScrollEvent.SCROLL, events.getOnScrollEventHandler());
         scroll.addEventFilter(MouseEvent.MOUSE_PRESSED, events.getOnMousePressedEventHandler());
         scroll.addEventFilter(MouseEvent.MOUSE_DRAGGED, events.getOnMouseDraggedEventHandler());
+        addBtn.setVisible(false);
     }
 
     @FXML
@@ -129,8 +129,8 @@ public class Controller implements Initializable {
         dialog.setHeaderText("Please specify…");
         DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-        TextField rows = new TextField("Rows");
-        TextField cols = new TextField("Cols");
+        TextField rows = new TextField("20");
+        TextField cols = new TextField("20");
         dialogPane.setContent(new VBox(rows, cols));
         dialog.setResultConverter((ButtonType button) -> {
             if (button == ButtonType.OK) {
@@ -145,6 +145,7 @@ public class Controller implements Initializable {
         optional.ifPresent((Map result) -> {
             world = new World((int)result.get("rows"), (int)result.get("cols"));
             InitWorldGrid();
+            addBtn.setVisible(true);
         });
     }
 
@@ -156,6 +157,7 @@ public class Controller implements Initializable {
         executor = null;
         scroll.setContent(initView);
         clearBtn.setVisible(false);
+        addBtn.setVisible(false);
     }
 
     @FXML
@@ -188,6 +190,168 @@ public class Controller implements Initializable {
         alert.showAndWait();
 
         System.exit(2);
+    }
+
+    @FXML
+    public void addComponent() {
+        List<String> choices = new ArrayList<>();
+        choices.add("Diode");
+        choices.add("OrGate");
+        choices.add("AndNoGate");
+        choices.add("FlipFlop");
+        choices.add("Generator");
+        choices.add("Wire");
+        choices.add("Electron");
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("Diode", choices);
+        dialog.setTitle("Add component to world");
+        dialog.setHeaderText("Add component");
+        dialog.setContentText("Choose component");
+
+// Traditional way to get the response value.
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            specifyArguments(result.get());
+        }
+// The Java 8 way to get the response value (with lambda expression).
+//        result.ifPresent(letter -> System.out.println("Your choice: " + letter));
+    }
+
+    @FXML
+    public void specifyArguments(String component) {
+
+        if(component.equals("Diode")||component.equals("OrGate")||component.equals("AndNoGate")||component.equals("FlipFlop")){
+            Dialog<Map> dialog = new Dialog<>();
+            dialog.setTitle("Specify arguments");
+            dialog.setHeaderText("Please specify…");
+            DialogPane dialogPane = dialog.getDialogPane();
+            dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+            TextField direction = new TextField("Normal");
+            TextField position = new TextField("Horizontal");
+            TextField x = new TextField("3");
+            TextField y = new TextField("3");
+            dialogPane.setContent(new VBox(position, direction, x, y));
+            dialog.setResultConverter((ButtonType button) -> {
+                if (button == ButtonType.OK) {
+                    Map<String, String> result = new HashMap<>();
+                    result.put("direction", direction.getText());
+                    result.put("position", position.getText());
+                    result.put("x", x.getText());
+                    result.put("y", y.getText());
+                    return result;
+                }
+                return null;
+            });
+            Optional<Map> optional = dialog.showAndWait();
+            optional.ifPresent((Map result) -> {
+                ArrayList<String> arguments = new ArrayList<String>();
+                arguments.add((String)result.get("position"));
+                arguments.add((String)result.get("direction"));
+                arguments.add((String)result.get("x"));
+                arguments.add((String)result.get("y"));
+                FileManager fm = new FileManager();
+                world = fm.AddComponentToWorld(component,arguments,world);
+                InitWorldGrid();
+            });
+        }
+        else if(component.equals("Wire")){
+            Dialog<Map> dialog = new Dialog<>();
+            dialog.setTitle("Specify arguments");
+            dialog.setHeaderText("Please specify…");
+            DialogPane dialogPane = dialog.getDialogPane();
+            dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+            TextField x1 = new TextField("1");
+            TextField y1 = new TextField("1");
+            TextField x2 = new TextField("3");
+            TextField y2 = new TextField("3");
+            dialogPane.setContent(new VBox(x1, y1, x2, y2));
+            dialog.setResultConverter((ButtonType button) -> {
+                if (button == ButtonType.OK) {
+                    Map<String, String> result = new HashMap<>();
+                    result.put("x1", x1.getText());
+                    result.put("y1", y1.getText());
+                    result.put("x2", x2.getText());
+                    result.put("y2", y2.getText());
+                    return result;
+                }
+                return null;
+            });
+            Optional<Map> optional = dialog.showAndWait();
+            optional.ifPresent((Map result) -> {
+                ArrayList<String> arguments = new ArrayList<String>();
+                arguments.add((String)result.get("x1"));
+                arguments.add((String)result.get("y1"));
+                arguments.add((String)result.get("x2"));
+                arguments.add((String)result.get("y2"));
+                FileManager fm = new FileManager();
+                world = fm.AddComponentToWorld(component,arguments,world);
+                InitWorldGrid();
+            });
+        }
+        else if(component.equals("Electron")){
+            Dialog<Map> dialog = new Dialog<>();
+            dialog.setTitle("Specify arguments");
+            dialog.setHeaderText("Please specify…");
+            DialogPane dialogPane = dialog.getDialogPane();
+            dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+                TextField type = new TextField("Head");
+                TextField x = new TextField("3");
+                TextField y = new TextField("3");
+                dialogPane.setContent(new VBox(type, x, y));
+                dialog.setResultConverter((ButtonType button) -> {
+                    if (button == ButtonType.OK) {
+                        Map<String, String> result = new HashMap<>();
+                        result.put("type", type.getText());
+                        result.put("x", x.getText());
+                        result.put("y", y.getText());
+                        return result;
+                    }
+                    return null;
+                });
+                Optional<Map> optional = dialog.showAndWait();
+                optional.ifPresent((Map result) -> {
+                    ArrayList<String> arguments = new ArrayList<String>();
+                    arguments.add((String)result.get("type"));
+                    arguments.add((String)result.get("x"));
+                    arguments.add((String)result.get("y"));
+                    FileManager fm = new FileManager();
+                    world = fm.AddComponentToWorld(component,arguments,world);
+                    InitWorldGrid();
+                });
+        }
+        else if(component.equals("Generator")){
+            Dialog<Map> dialog = new Dialog<>();
+            dialog.setTitle("Specify arguments");
+            dialog.setHeaderText("Please specify…");
+            DialogPane dialogPane = dialog.getDialogPane();
+            dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+            TextField position = new TextField("Horizontal");
+            TextField x = new TextField("3");
+            TextField y = new TextField("3");
+            dialogPane.setContent(new VBox(position, x, y));
+            dialog.setResultConverter((ButtonType button) -> {
+                if (button == ButtonType.OK) {
+                    Map<String, String> result = new HashMap<>();
+                    result.put("position", position.getText());
+                    result.put("x", x.getText());
+                    result.put("y", y.getText());
+                    return result;
+                }
+                return null;
+            });
+            Optional<Map> optional = dialog.showAndWait();
+            optional.ifPresent((Map result) -> {
+                ArrayList<String> arguments = new ArrayList<String>();
+                arguments.add((String)result.get("position"));
+                arguments.add((String)result.get("x"));
+                arguments.add((String)result.get("y"));
+                FileManager fm = new FileManager();
+                world = fm.AddComponentToWorld(component,arguments,world);
+                InitWorldGrid();
+            });
+        }
+
+
     }
 }
 

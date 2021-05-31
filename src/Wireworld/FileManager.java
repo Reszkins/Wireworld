@@ -108,9 +108,10 @@ public class FileManager {
         return world;
     }
 
-    /*public void AddComponentToWorld(String element, ArrayList<String> args){
+    public World AddComponentToWorld(String element, ArrayList<String> args, World world){
         String[] arguments = new String[5];
         String position, direction, x, y, line, x2, y2, type;
+        Component c;
         int i;
 
         switch (element) {
@@ -121,13 +122,14 @@ public class FileManager {
                     i++;
                 }
 
-                position = arguments[1];
-                direction = arguments[2];
-                x = arguments[3];
-                y = arguments[4];
-                line = "Diode, "+arguments[1]+", "+arguments[2]+", "+arguments[3]+", "+arguments[4];
+                position = arguments[0];
+                direction = arguments[1];
+                x = arguments[2];
+                y = arguments[3];
+                line = "Diode, "+arguments[0]+", "+arguments[1]+", "+arguments[2]+", "+arguments[3];
                 world.list.add(line);
-                world = Diode.Diode(position, direction, Integer.parseInt(x), Integer.parseInt(y), world);
+                c = new Diode(position, direction, Integer.parseInt(x), Integer.parseInt(y));
+                world.Merge(c.element, Integer.parseInt(x)- c.startX, Integer.parseInt(y)- c.startY);
                 break;
             case "OrGate":
                 i=0;
@@ -136,13 +138,14 @@ public class FileManager {
                     i++;
                 }
 
-                position = arguments[1].substring(1);
-                direction = arguments[2].substring(1);
-                x = arguments[3].substring(1);
-                y = arguments[4].substring(1);
-                line = "OrGate, "+arguments[1]+", "+arguments[2]+", "+arguments[3]+", "+arguments[4];
+                position = arguments[0];
+                direction = arguments[1];
+                x = arguments[2];
+                y = arguments[3];
+                line = "OrGate, "+arguments[0]+", "+arguments[1]+", "+arguments[2]+", "+arguments[3];
                 world.list.add(line);
-                world = OrGate.OrGate(position, direction, Integer.parseInt(x), Integer.parseInt(y), world);
+                c = new OrGate(position, direction, Integer.parseInt(x), Integer.parseInt(y));
+                world.Merge(c.element, Integer.parseInt(x)- c.startX, Integer.parseInt(y)- c.startY);
                 break;
             case "AndNoGate":
                 i=0;
@@ -151,13 +154,14 @@ public class FileManager {
                     i++;
                 }
 
-                position = arguments[1].substring(1);
-                direction = arguments[2].substring(1);
-                x = arguments[3].substring(1);
-                y = arguments[4].substring(1);
-                line = "AndNoGate, "+arguments[1]+", "+arguments[2]+", "+arguments[3]+", "+arguments[4];
+                position = arguments[0];
+                direction = arguments[1];
+                x = arguments[2];
+                y = arguments[3];
+                line = "AndNoGate, "+arguments[0]+", "+arguments[1]+", "+arguments[2]+", "+arguments[3];
                 world.list.add(line);
-                world = AndNoGate.AndNoGate(position, direction, Integer.parseInt(x), Integer.parseInt(y), world);
+                c = new AndNoGate(position, direction, Integer.parseInt(x), Integer.parseInt(y));
+                world.Merge(c.element, Integer.parseInt(x)- c.startX, Integer.parseInt(y)- c.startY);
                 break;
             case "FlipFlop":
                 i=0;
@@ -166,13 +170,14 @@ public class FileManager {
                     i++;
                 }
 
-                position = arguments[1].substring(1);
-                direction = arguments[2].substring(1);
-                x = arguments[3].substring(1);
-                y = arguments[4].substring(1);
-                line = "FlipFlop, "+arguments[1]+", "+arguments[2]+", "+arguments[3]+", "+arguments[4];
+                position = arguments[0];
+                direction = arguments[1];
+                x = arguments[2];
+                y = arguments[3];
+                line = "FlipFlop, "+arguments[0]+", "+arguments[1]+", "+arguments[2]+", "+arguments[3];
                 world.list.add(line);
-                world = FlipFlop.FlipFlop(position, direction, Integer.parseInt(x), Integer.parseInt(y), world);
+                c = new FlipFlop(position, direction, Integer.parseInt(x), Integer.parseInt(y));
+                world.Merge(c.element, Integer.parseInt(x)- c.startX, Integer.parseInt(y)- c.startY);
                 break;
             case "Generator":
                 i=0;
@@ -181,12 +186,13 @@ public class FileManager {
                     i++;
                 }
 
-                position = arguments[1].substring(1);
-                x = arguments[2].substring(1);
-                y = arguments[3].substring(1);
-                line = "Generator, "+arguments[1]+", "+arguments[2]+", "+arguments[3]+", "+arguments[4];
+                position = arguments[0];
+                x = arguments[1];
+                y = arguments[2];
+                line = "Generator, "+arguments[0]+", "+arguments[1]+", "+arguments[2]+", "+arguments[3];
                 world.list.add(line);
-                world = Generator.Generator(position, Integer.parseInt(x), Integer.parseInt(y), world);
+                c = new Generator(position,"Normal", Integer.parseInt(x), Integer.parseInt(y));
+                world.Merge(c.element, Integer.parseInt(x)- c.startX, Integer.parseInt(y)- c.startY);
                 break;
             case "Wire":
                 i=0;
@@ -195,22 +201,30 @@ public class FileManager {
                     i++;
                 }
 
-                x = arguments[1].substring(1);
-                y = arguments[2].substring(1);
-                x2 = arguments[3].substring(1);
-                y2 = arguments[4].substring(1);
-                line = "Wire, "+arguments[1]+", "+arguments[2]+", "+arguments[3]+", "+arguments[4];
+                x = arguments[0];
+                y = arguments[1];
+                x2 = arguments[2];
+                y2 = arguments[3];
+                line = "Wire, "+arguments[0]+", "+arguments[1]+", "+arguments[2]+", "+arguments[3];
+                System.out.println("Wire, "+arguments[0]+", "+arguments[1]+", "+arguments[2]+", "+arguments[3]);
                 world.list.add(line);
-                world = Wire.Wire(Integer.parseInt(x), Integer.parseInt(y), Integer.parseInt(x2), Integer.parseInt(y2), world);
+                Wire.Wire(Integer.parseInt(x), Integer.parseInt(y), Integer.parseInt(x2), Integer.parseInt(y2), world);
                 break;
             case "Electron":
-                type = arguments[1].substring(1);
-                x = arguments[2].substring(1);
-                y = arguments[3].substring(1);
-                world = Electron.Electron(type, Integer.parseInt(x), Integer.parseInt(y), world);
+                i=0;
+                for(String tmp : args){
+                    arguments[i] = tmp;
+                    i++;
+                }
+                System.out.println("Electron, "+arguments[0]+", "+arguments[1]+", "+arguments[2]);
+                type = arguments[0];
+                x = arguments[1];
+                y = arguments[2];
+                Electron.Electron(type, Integer.parseInt(x), Integer.parseInt(y), world);
                 break;
         }
-    }*/
+        return world;
+    }
 
     public static void WriteToFile(String path, World world) {
         BufferedWriter writer = null;
