@@ -1,6 +1,7 @@
 package GUI;
 
 import GUI.utils.PausableTask;
+import Wireworld.Components.Component;
 import Wireworld.FileManager;
 import Wireworld.World;
 import javafx.fxml.FXML;
@@ -92,6 +93,7 @@ public class Controller implements Initializable {
 
     @FXML
     public void saveFile() {
+        if(world == null) return;
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose output directory.");
         File selectedFile = fileChooser.showSaveDialog(root.getScene().getWindow());
@@ -159,7 +161,17 @@ public class Controller implements Initializable {
     }
 
     @FXML
+    public void  reset() {
+        if(task != null) task.shutDown();
+        if(executor != null) executor.shutdownNow();
+        executor = null;
+        world.reset();
+        InitWorldGrid();
+    }
+
+    @FXML
     public void start() {
+        if(world == null) return;
         if(executor == null) {
             BlockingQueue<Runnable> queue = new ArrayBlockingQueue<>(1);
             executor = new ThreadPoolExecutor(1,1,0, TimeUnit.SECONDS, queue);
@@ -172,11 +184,13 @@ public class Controller implements Initializable {
         else {
             task.resume();
         }
+        Class<?>[] result = Component.class.getClasses();
+        System.out.println(result.toString());
     }
 
     @FXML
     public void pause() {
-        task.pause();
+        if (task != null) task.pause();
     }
 
     public static void displayError(String errorText) {

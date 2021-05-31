@@ -38,7 +38,7 @@ public class FileManager {
                         direction = arguments[2];
                         x = arguments[3];
                         y = arguments[4];
-                        c = new Diode(position,direction,Integer.parseInt(x),Integer.parseInt(y));
+                        c = new Diode(position,direction);
                         world.Merge(c.element, Integer.parseInt(x)- c.startX, Integer.parseInt(y)- c.startY);
                         break;
                     case "OrGate":
@@ -47,7 +47,7 @@ public class FileManager {
                         direction = arguments[2];
                         x = arguments[3];
                         y = arguments[4];
-                        c = new OrGate(position,direction,Integer.parseInt(x),Integer.parseInt(y));
+                        c = new OrGate(position,direction);
                         world.Merge(c.element, Integer.parseInt(x)- c.startX, Integer.parseInt(y)- c.startY);
                         break;
                     case "AndNoGate":
@@ -56,7 +56,7 @@ public class FileManager {
                         direction = arguments[2];
                         x = arguments[3];
                         y = arguments[4];
-                        c = new AndNoGate(position,direction,Integer.parseInt(x),Integer.parseInt(y));
+                        c = new AndNoGate(position,direction);
                         world.Merge(c.element, Integer.parseInt(x)- c.startX, Integer.parseInt(y)- c.startY);
                         break;
                     case "FlipFlop":
@@ -65,7 +65,7 @@ public class FileManager {
                         direction = arguments[2];
                         x = arguments[3];
                         y = arguments[4];
-                        c = new FlipFlop(position,direction,Integer.parseInt(x),Integer.parseInt(y));
+                        c = new FlipFlop(position,direction);
                         world.Merge(c.element, Integer.parseInt(x)- c.startX, Integer.parseInt(y)- c.startY);
                         break;
                     case "Generator":
@@ -73,7 +73,7 @@ public class FileManager {
                         position = arguments[1];
                         x = arguments[2];
                         y = arguments[3];
-                        c = new Generator(position,"Normal",Integer.parseInt(x),Integer.parseInt(y));
+                        c = new Generator(position,"Normal");
                         world.Merge(c.element, Integer.parseInt(x)- c.startX, Integer.parseInt(y)- c.startY);
                         break;
                     case "Wire":

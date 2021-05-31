@@ -1,7 +1,7 @@
 package Wireworld.Components;
 
 public class Diode extends Component {
-    public Diode(String position, String direction, int x, int y){
+    public Diode(String position, String direction){
         element = new boolean[][]{
                 {false, true, false},
                 {false, true, false},
@@ -14,6 +14,6 @@ public class Diode extends Component {
                 {false, true, false}};
         startX=0;
         startY=1;
-        adjustElement(position, direction, x, y);
+        adjustElement(position, direction);
     }
 }

@@ -1,7 +1,7 @@
 package Wireworld.Components;
 
 public class Generator extends Component {
-    public Generator(String position, String direction, int x, int y){
+    public Generator(String position, String direction){
         element = new boolean[][]{
                 {false, true, false, },
                 {false, true, false, },
@@ -16,6 +16,6 @@ public class Generator extends Component {
         };
         startX=0;
         startY=1;
-        adjustElement(position, direction, x, y);
+        adjustElement(position, direction);
     }
 }

@@ -27,6 +27,14 @@
                     <Insets right="20.0" />
                 </HBox.margin>
             </Button>
+            <Button fx:id="resetBtn" onAction="#reset" prefHeight="38.0" prefWidth="31.0" styleClass="btn">
+                <graphic>
+                    <Region styleClass="icon" />
+                </graphic>
+                <HBox.margin>
+                    <Insets right="20.0" />
+                </HBox.margin>
+            </Button>
             <Label alignment="CENTER" text="Iterations:">
                 <HBox.margin>
                     <Insets right="20.0" />
@@ -35,7 +43,7 @@
                 <HBox.margin>
                     <Insets right="20.0" />
                 </HBox.margin></TextField>
-            <Button fx:id="saveBtn" onAction="#saveFile" mnemonicParsing="false" prefHeight="35.0" prefWidth="36.0" styleClass="btn">
+            <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#saveFile" prefHeight="35.0" prefWidth="36.0" styleClass="btn">
                 <graphic>
                     <Region styleClass="icon">
                         <padding>
@@ -107,4 +115,5 @@
             </Label>
             <Label fx:id="zoomInfo" text="1:1" />
         </HBox>
-    </bottom></BorderPane>
+    </bottom>
+     </BorderPane>
