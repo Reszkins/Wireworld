@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -131,7 +132,13 @@ public class Controller implements Initializable {
         dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
         TextField rows = new TextField("20");
         TextField cols = new TextField("20");
-        dialogPane.setContent(new VBox(rows, cols));
+        Label r = new Label("rows:");
+        Label c = new Label("cols:");
+        VBox labels = new VBox(r,c);
+        labels.setSpacing(16);
+        VBox textfields = new VBox(rows,cols);
+        textfields.setSpacing(5);
+        dialogPane.setContent(new HBox(labels, textfields));
         dialog.setResultConverter((ButtonType button) -> {
             if (button == ButtonType.OK) {
                 Map<String, Integer> result = new HashMap<>();
@@ -230,7 +237,15 @@ public class Controller implements Initializable {
             TextField position = new TextField("Horizontal");
             TextField x = new TextField("3");
             TextField y = new TextField("3");
-            dialogPane.setContent(new VBox(position, direction, x, y));
+            VBox textfields = new VBox(position, direction, x, y);
+            Label l_direction = new Label("direction:");
+            Label l_position = new Label("position:");
+            Label l_x = new Label("starting point x:");
+            Label l_y = new Label("starting point y:");
+            VBox labels = new VBox(l_position,l_direction,l_x,l_y);
+            labels.setSpacing(16);
+            textfields.setSpacing(5);
+            dialogPane.setContent(new HBox(labels, textfields));
             dialog.setResultConverter((ButtonType button) -> {
                 if (button == ButtonType.OK) {
                     Map<String, String> result = new HashMap<>();
@@ -264,7 +279,15 @@ public class Controller implements Initializable {
             TextField y1 = new TextField("1");
             TextField x2 = new TextField("3");
             TextField y2 = new TextField("3");
-            dialogPane.setContent(new VBox(x1, y1, x2, y2));
+            VBox textfields = new VBox(x1, y1, x2, y2);
+            Label l_x1 = new Label("starting point x:");
+            Label l_y1 = new Label("starting point y:");
+            Label l_x2 = new Label("ending point x:");
+            Label l_y2 = new Label("ending point y:");
+            VBox labels = new VBox(l_x1,l_y1,l_x2,l_y2);
+            labels.setSpacing(16);
+            textfields.setSpacing(5);
+            dialogPane.setContent(new HBox(labels, textfields));
             dialog.setResultConverter((ButtonType button) -> {
                 if (button == ButtonType.OK) {
                     Map<String, String> result = new HashMap<>();
@@ -294,10 +317,17 @@ public class Controller implements Initializable {
             dialog.setHeaderText("Please specify…");
             DialogPane dialogPane = dialog.getDialogPane();
             dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-                TextField type = new TextField("Head");
-                TextField x = new TextField("3");
-                TextField y = new TextField("3");
-                dialogPane.setContent(new VBox(type, x, y));
+            TextField type = new TextField("Head");
+            TextField x = new TextField("3");
+            TextField y = new TextField("3");
+            VBox textfields = new VBox(type,x,y);
+            Label l_type = new Label("type:");
+            Label l_x = new Label("starting point x:");
+            Label l_y = new Label("starting point y:");
+            VBox labels = new VBox(l_type,l_x,l_y);
+            labels.setSpacing(16);
+            textfields.setSpacing(5);
+            dialogPane.setContent(new HBox(labels, textfields));
                 dialog.setResultConverter((ButtonType button) -> {
                     if (button == ButtonType.OK) {
                         Map<String, String> result = new HashMap<>();
@@ -328,7 +358,14 @@ public class Controller implements Initializable {
             TextField position = new TextField("Horizontal");
             TextField x = new TextField("3");
             TextField y = new TextField("3");
-            dialogPane.setContent(new VBox(position, x, y));
+            VBox textfields = new VBox(position,x,y);
+            Label l_position = new Label("position:");
+            Label l_x = new Label("starting point x:");
+            Label l_y = new Label("starting point y:");
+            VBox labels = new VBox(l_position,l_x,l_y);
+            labels.setSpacing(16);
+            textfields.setSpacing(5);
+            dialogPane.setContent(new HBox(labels, textfields));
             dialog.setResultConverter((ButtonType button) -> {
                 if (button == ButtonType.OK) {
                     Map<String, String> result = new HashMap<>();

@@ -206,7 +206,6 @@ public class FileManager {
                 x2 = arguments[2];
                 y2 = arguments[3];
                 line = "Wire, "+arguments[0]+", "+arguments[1]+", "+arguments[2]+", "+arguments[3];
-                System.out.println("Wire, "+arguments[0]+", "+arguments[1]+", "+arguments[2]+", "+arguments[3]);
                 world.list.add(line);
                 Wire.Wire(Integer.parseInt(x), Integer.parseInt(y), Integer.parseInt(x2), Integer.parseInt(y2), world);
                 break;
