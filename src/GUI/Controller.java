@@ -193,8 +193,6 @@ public class Controller implements Initializable {
         else {
             task.resume();
         }
-        Class<?>[] result = Component.class.getClasses();
-        System.out.println(result.toString());
     }
 
     @FXML

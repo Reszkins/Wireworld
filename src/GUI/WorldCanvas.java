@@ -22,6 +22,9 @@ public class WorldCanvas extends Canvas {
     private World world;
     private GraphicsContext gc;
     private PropertiesManager properties;
+    private Color wireColor;
+    private Color headColor;
+    private Color tailColor;
 
     public WorldCanvas(World world) {
         super(0, 0);
@@ -57,6 +60,9 @@ public class WorldCanvas extends Canvas {
     public void updateProperties() {
         borderSize = Double.parseDouble(properties.getProperty("borderSize"));
         showGridLines = Boolean.parseBoolean(properties.getProperty("showGridLines"));
+        wireColor = Color.web(properties.getProperty("wireColor"));
+        headColor = Color.web(properties.getProperty("headColor"));
+        tailColor = Color.web(properties.getProperty("tailColor"));
     }
 
     public void drawWorld()
@@ -65,9 +71,9 @@ public class WorldCanvas extends Canvas {
         gc.fillRect(0,0,getWidth(),getHeight());
         for( int i = 0 ; i < cols ; i++){
             for( int j = 0 ; j < rows ; j++){
-                    if(world.wireworld[j][i] == Cells.Case.WIRE) draw(i,j,Color.YELLOW);
-                    else if(world.wireworld[j][i] == Cells.Case.ELECTRON_HEAD) draw(i,j,Color.BLUE);
-                    else if(world.wireworld[j][i] == Cells.Case.ELECTRON_TAIL) draw(i,j,Color.RED);
+                    if(world.wireworld[j][i] == Cells.Case.WIRE) draw(i,j,wireColor);
+                    else if(world.wireworld[j][i] == Cells.Case.ELECTRON_HEAD) draw(i,j,headColor);
+                    else if(world.wireworld[j][i] == Cells.Case.ELECTRON_TAIL) draw(i,j,tailColor);
             }
         }
         if(showGridLines) drawGridLines();
@@ -78,9 +84,9 @@ public class WorldCanvas extends Canvas {
             for( int j = 0 ; j < rows ; j++){
                 if(world.hasChanged(j,i)){
                     System.out.println(world.wireworld[i][j] + " x=" + j + " y="+i);
-                    if(world.wireworld[j][i] == Cells.Case.WIRE) draw(i,j,Color.YELLOW);
-                    else if(world.wireworld[j][i] == Cells.Case.ELECTRON_HEAD) draw(i,j,Color.BLUE);
-                    else if(world.wireworld[j][i] == Cells.Case.ELECTRON_TAIL) draw(i,j,Color.RED);
+                    if(world.wireworld[j][i] == Cells.Case.WIRE) draw(i,j,wireColor);
+                    else if(world.wireworld[j][i] == Cells.Case.ELECTRON_HEAD) draw(i,j,headColor);
+                    else if(world.wireworld[j][i] == Cells.Case.ELECTRON_TAIL) draw(i,j,tailColor);
                 }
             }
         }

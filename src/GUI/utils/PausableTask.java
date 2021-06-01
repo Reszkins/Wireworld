@@ -13,11 +13,15 @@ public class PausableTask implements Runnable {
     private World world;
     private int iterations;
     private WorldCanvas canvas;
+    private int maxFps;
+    PropertiesManager properties;
 
     public PausableTask(WorldCanvas canvas, int iterations) {
         this.world = canvas.getWorld();
         this.canvas = canvas;
         this.iterations = iterations;
+        properties = new PropertiesManager();
+        this.maxFps = Integer.parseInt(properties.getProperty("maxFPS"));
     }
 
     public void pause(){
@@ -47,7 +51,7 @@ public class PausableTask implements Runnable {
                     canvas.drawNextGen();
                     Platform.runLater(() -> canvas.printGen());
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(1000 / maxFps);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
