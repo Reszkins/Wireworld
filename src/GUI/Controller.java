@@ -179,6 +179,15 @@ public class Controller implements Initializable {
     }
 
     @FXML
+    public void  reset() {
+        if(task != null) task.shutDown();
+        if(executor != null) executor.shutdownNow();
+        executor = null;
+        world.reset();
+        InitWorldGrid();
+    }
+
+    @FXML
     public void start() {
         if(world == null) return;
         if(executor == null) {
