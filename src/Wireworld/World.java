@@ -9,7 +9,8 @@ public class World extends Cells {
     public int cols;
     public int generation;
     public Case[][] wireworld;
-
+    private Case[][] previous;
+    private Case[][] initialWireworld;
     public ArrayList<String> list;
 
     public World(int rows, int cols) {
@@ -17,6 +18,7 @@ public class World extends Cells {
         this.cols = cols;
         generation = 0;
         wireworld = new Case[rows][cols];
+        initialWireworld = new Case[rows][cols];
         list = new ArrayList<>();
         Fill();
     }
@@ -49,10 +51,14 @@ public class World extends Cells {
     }
 
     public void NextIteration(){
-        Case[][] tmp = new Case[rows][cols];
+        if(generation == 0) {
+            for(int i = 0; i < wireworld.length; i++)
+                initialWireworld[i] = wireworld[i].clone();
+        }
+        previous = new Case[rows][cols];
         for(int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                tmp[i][j] = wireworld[i][j];
+                previous[i][j] = wireworld[i][j];
             }
         }
         for(int i = 0; i < rows; i++){
@@ -63,7 +69,7 @@ public class World extends Cells {
                     else if(wireworld[i][j] == Case.ELECTRON_TAIL)
                         wireworld[i][j] = Case.WIRE;
                     else if(wireworld[i][j] == Case.WIRE){
-                        int n = CountElectronNeighbors(i-1,j-1,tmp);
+                        int n = CountElectronNeighbors(i-1,j-1,previous);
                         if(n == 1 || n == 2)
                             wireworld[i][j] = Case.ELECTRON_HEAD;
                     }
@@ -71,6 +77,12 @@ public class World extends Cells {
             }
         }
         generation++;
+    }
+
+    public void reset() {
+        for(int i = 0; i < initialWireworld.length; i++)
+            wireworld[i] = initialWireworld[i].clone();
+        generation=0;
     }
 
     private int CountElectronNeighbors(int x, int y, Case[][] tmp) {
@@ -89,4 +101,7 @@ public class World extends Cells {
         return result;
     }
 
+    public boolean hasChanged(int x, int y) {
+        return  wireworld[x][y] != previous[x][y];
+    }
 }

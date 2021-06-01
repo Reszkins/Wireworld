@@ -43,7 +43,8 @@ public class PausableTask implements Runnable {
                 for (int i = world.generation; i < iterations; i++) {
                     if(isPaused || shutDown) break;
                     world.NextIteration();
-                    canvas.drawWorld();
+                    //canvas.drawWorld();
+                    canvas.drawNextGen();
                     Platform.runLater(() -> canvas.printGen());
                     try {
                         Thread.sleep(100);

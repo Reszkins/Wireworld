@@ -1,7 +1,7 @@
 package Wireworld.Components;
 
 public class FlipFlop extends Component {
-    public FlipFlop(String position, String direction, int x, int y){
+    public FlipFlop(String position, String direction){
         element = new boolean[][]{
                 {true, false, false, false, false, false, false, false, true, },
                 {true, false, false, false, false, false, false, false, true, },
@@ -17,6 +17,6 @@ public class FlipFlop extends Component {
         };
         startX=0;
         startY=4;
-        adjustElement(position, direction, x, y);
+        adjustElement(position, direction);
     }
 }

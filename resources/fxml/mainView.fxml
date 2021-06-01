@@ -11,10 +11,10 @@
             <BorderPane.margin>
                 <Insets />
             </BorderPane.margin>
-         <Button fx:id="addBtn" mnemonicParsing="false" onAction="#addComponent">
-            <graphic>
-               <Region prefHeight="20.0" prefWidth="15.0" />
-            </graphic>
+         <Button fx:id="addBtn" mnemonicParsing="false" onAction="#addComponent" styleClass="btn">
+             <graphic>
+                 <Region styleClass="icon" />
+             </graphic>
             <HBox.margin>
                <Insets right="20.0" />
             </HBox.margin>
@@ -28,6 +28,14 @@
                 </HBox.margin>
             </Button>
             <Button fx:id="pauseBtn" onAction="#pause" prefHeight="38.0" prefWidth="31.0" styleClass="btn">
+                <graphic>
+                    <Region styleClass="icon" />
+                </graphic>
+                <HBox.margin>
+                    <Insets right="20.0" />
+                </HBox.margin>
+            </Button>
+            <Button fx:id="resetBtn" onAction="#reset" prefHeight="38.0" prefWidth="31.0" styleClass="btn">
                 <graphic>
                     <Region styleClass="icon" />
                 </graphic>
@@ -115,4 +123,5 @@
             </Label>
             <Label fx:id="zoomInfo" text="1:1" />
         </HBox>
-    </bottom></BorderPane>
+    </bottom>
+     </BorderPane>

@@ -65,12 +65,25 @@ public class WorldCanvas extends Canvas {
         gc.fillRect(0,0,getWidth(),getHeight());
         for( int i = 0 ; i < cols ; i++){
             for( int j = 0 ; j < rows ; j++){
-                if(world.wireworld[j][i] == Cells.Case.WIRE) draw(i,j,Color.YELLOW);
-                else if(world.wireworld[j][i] == Cells.Case.ELECTRON_HEAD) draw(i,j,Color.BLUE);
-                else if(world.wireworld[j][i] == Cells.Case.ELECTRON_TAIL) draw(i,j,Color.RED);
+                    if(world.wireworld[j][i] == Cells.Case.WIRE) draw(i,j,Color.YELLOW);
+                    else if(world.wireworld[j][i] == Cells.Case.ELECTRON_HEAD) draw(i,j,Color.BLUE);
+                    else if(world.wireworld[j][i] == Cells.Case.ELECTRON_TAIL) draw(i,j,Color.RED);
             }
         }
         if(showGridLines) drawGridLines();
+    }
+
+    public void drawNextGen() {
+        for( int i = 0 ; i < cols ; i++){
+            for( int j = 0 ; j < rows ; j++){
+                if(world.hasChanged(j,i)){
+                    System.out.println(world.wireworld[i][j] + " x=" + j + " y="+i);
+                    if(world.wireworld[j][i] == Cells.Case.WIRE) draw(i,j,Color.YELLOW);
+                    else if(world.wireworld[j][i] == Cells.Case.ELECTRON_HEAD) draw(i,j,Color.BLUE);
+                    else if(world.wireworld[j][i] == Cells.Case.ELECTRON_TAIL) draw(i,j,Color.RED);
+                }
+            }
+        }
     }
 
     public void draw(int row, int col, Color color) {
