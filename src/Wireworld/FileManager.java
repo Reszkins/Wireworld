@@ -189,7 +189,7 @@ public class FileManager {
                 position = arguments[0];
                 x = arguments[1];
                 y = arguments[2];
-                line = "Generator, "+arguments[0]+", "+arguments[1]+", "+arguments[2]+", "+arguments[3];
+                line = "Generator, "+arguments[0]+", "+arguments[1]+", "+arguments[2];
                 world.list.add(line);
                 c = new Generator(position,"Normal");
                 world.Merge(c.element, Integer.parseInt(x)- c.startX, Integer.parseInt(y)- c.startY);
@@ -243,8 +243,8 @@ public class FileManager {
             Controller.displayError("Błąd podczas tworzenia pliku!");
         }
 
-        for(int i=0;i<100;++i){
-            for(int j=0;j<100;++j){
+        for(int i=0;i<world.rows;++i){
+            for(int j=0;j<world.cols;++j){
                 if(world.wireworld[i][j] == Cells.Case.ELECTRON_HEAD) {
                     try {
                         String line = "Electron, Head, " + i + ", " + j;

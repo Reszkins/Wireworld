@@ -229,24 +229,21 @@ public class Controller implements Initializable {
         dialog.setHeaderText("Add component");
         dialog.setContentText("Choose component");
 
-// Traditional way to get the response value.
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
             specifyArguments(result.get());
         }
-// The Java 8 way to get the response value (with lambda expression).
-//        result.ifPresent(letter -> System.out.println("Your choice: " + letter));
     }
 
     @FXML
     public void specifyArguments(String component) {
+        Dialog<Map> dialog = new Dialog<>();
+        dialog.setTitle("Specify arguments");
+        dialog.setHeaderText("Please specify…");
+        DialogPane dialogPane = dialog.getDialogPane();
+        dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
         if(component.equals("Diode")||component.equals("OrGate")||component.equals("AndNoGate")||component.equals("FlipFlop")){
-            Dialog<Map> dialog = new Dialog<>();
-            dialog.setTitle("Specify arguments");
-            dialog.setHeaderText("Please specify…");
-            DialogPane dialogPane = dialog.getDialogPane();
-            dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
             TextField direction = new TextField("Normal");
             TextField position = new TextField("Horizontal");
             TextField x = new TextField("3");
@@ -284,11 +281,6 @@ public class Controller implements Initializable {
             });
         }
         else if(component.equals("Wire")){
-            Dialog<Map> dialog = new Dialog<>();
-            dialog.setTitle("Specify arguments");
-            dialog.setHeaderText("Please specify…");
-            DialogPane dialogPane = dialog.getDialogPane();
-            dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
             TextField x1 = new TextField("1");
             TextField y1 = new TextField("1");
             TextField x2 = new TextField("3");
@@ -326,11 +318,6 @@ public class Controller implements Initializable {
             });
         }
         else if(component.equals("Electron")){
-            Dialog<Map> dialog = new Dialog<>();
-            dialog.setTitle("Specify arguments");
-            dialog.setHeaderText("Please specify…");
-            DialogPane dialogPane = dialog.getDialogPane();
-            dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
             TextField type = new TextField("Head");
             TextField x = new TextField("3");
             TextField y = new TextField("3");
@@ -364,11 +351,6 @@ public class Controller implements Initializable {
                 });
         }
         else if(component.equals("Generator")){
-            Dialog<Map> dialog = new Dialog<>();
-            dialog.setTitle("Specify arguments");
-            dialog.setHeaderText("Please specify…");
-            DialogPane dialogPane = dialog.getDialogPane();
-            dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
             TextField position = new TextField("Horizontal");
             TextField x = new TextField("3");
             TextField y = new TextField("3");
