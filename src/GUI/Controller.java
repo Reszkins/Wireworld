@@ -193,8 +193,6 @@ public class Controller implements Initializable {
         else {
             task.resume();
         }
-        Class<?>[] result = Component.class.getClasses();
-        System.out.println(result.toString());
     }
 
     @FXML
@@ -229,13 +227,10 @@ public class Controller implements Initializable {
         dialog.setHeaderText("Add component");
         dialog.setContentText("Choose component");
 
-// Traditional way to get the response value.
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
             specifyArguments(result.get());
         }
-// The Java 8 way to get the response value (with lambda expression).
-//        result.ifPresent(letter -> System.out.println("Your choice: " + letter));
     }
 
     @FXML
