@@ -31,6 +31,7 @@ public class World extends Cells {
         for( int i = 0 ; i < rows ; i++){
             for( int j = 0 ; j < cols ; j++){
                 wireworld[i][j] = Case.EMPTY;
+                initialWireworld[i][j] = Case.EMPTY;
             }
         }
     }

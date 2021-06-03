@@ -15,7 +15,6 @@ public class FileManager {
         String filePath = path;
 
         world = new World();
-        world.Fill();
 
         try {
             fileReader = new BufferedReader(new FileReader(filePath));
