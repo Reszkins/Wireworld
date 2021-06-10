@@ -31,11 +31,16 @@ public class World extends Cells {
         for( int i = 0 ; i < rows ; i++){
             for( int j = 0 ; j < cols ; j++){
                 wireworld[i][j] = Case.EMPTY;
+                initialWireworld[i][j] = Case.EMPTY;
             }
         }
     }
 
     public void Merge(boolean[][] element, int x, int y){
+        if(x<0 || y<0){
+            Controller.displayError("Błędne dane wejściowe - komponenty wychodzą poza planszę!");
+            return;
+        }
         for(int i = x ; i < x + element.length ; i++) {
             for(int j = y ; j < y + element[1].length ; j++) {
                 if(i >= rows || j>= cols){
